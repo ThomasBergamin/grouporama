@@ -14,7 +14,7 @@ const Input = ({ placeholder }: IInput) => {
         placeholder={placeholder}
       ></input>
       <div className="absolute top-2 left-3">
-        <FaSearch className="text-darkGray" />
+        <FaSearch className="text-tertiary" />
       </div>
     </div>
   );
