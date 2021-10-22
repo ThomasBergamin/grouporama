@@ -10,7 +10,8 @@ interface IButton {
 }
 
 const Button = ({ label, primary, secondary, onClick, tertiary }: IButton) => {
-  const baseClass = 'shadow-lg text-white py-2 px-4 rounded-full';
+  const baseClass =
+    'transition-colors shadow-lg text-white py-2 px-4 rounded-full';
   return (
     <button
       className={classNames(baseClass, {
