@@ -10,13 +10,13 @@ module.exports = {
     extend: {
       colors: {
         secondary: colors.red[500],
-        secondaryDark: colors.red[600],
+        secondaryDark: colors.red[700],
         pink: colors.red[100],
         lightBlue: colors.sky[400],
         primary: colors.sky[600],
-        primaryDark: colors.sky[700],
+        primaryDark: colors.sky[800],
         tertiary: colors.indigo[400],
-        tertiaryDark: colors.indigo[500],
+        tertiaryDark: colors.indigo[600],
         lightGray: colors.coolGray[50],
         gray: colors.coolGray[200],
         darkGray: colors.coolGray[400],
