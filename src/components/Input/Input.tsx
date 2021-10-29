@@ -5,7 +5,9 @@ interface IInput {
   placeholder: string;
 }
 
-const Input = ({ placeholder }: IInput) => {
+const Input: ({ placeholder }: IInput) => JSX.Element = ({
+  placeholder,
+}: IInput) => {
   return (
     <div className="relative">
       <input

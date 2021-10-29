@@ -9,7 +9,19 @@ interface IButton {
   onClick?: () => void;
 }
 
-const Button = ({ label, primary, secondary, onClick, tertiary }: IButton) => {
+const Button: ({
+  label,
+  primary,
+  secondary,
+  onClick,
+  tertiary,
+}: IButton) => JSX.Element = ({
+  label,
+  primary,
+  secondary,
+  onClick,
+  tertiary,
+}: IButton) => {
   const baseClass =
     'transition-colors shadow-lg text-white py-2 px-4 rounded-full';
   return (

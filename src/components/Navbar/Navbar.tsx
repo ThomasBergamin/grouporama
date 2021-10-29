@@ -3,7 +3,7 @@ import logo from '../../img/logos/icon-left-font-monochrome-black.svg';
 import Button from '../Button';
 import Input from '../Input';
 
-const Navbar = () => (
+const Navbar: () => JSX.Element = () => (
   <nav className="bg-pink">
     <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
       <div className="flex items-center container py-2">

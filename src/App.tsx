@@ -2,7 +2,7 @@
 import Navbar from './components/Navbar';
 import Button from './components/Button';
 
-const App = () => {
+const App: () => JSX.Element = () => {
   return (
     <>
       <Navbar />
