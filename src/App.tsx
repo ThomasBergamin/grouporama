@@ -1,11 +1,21 @@
 import React from 'react';
-import Navbar from './components/Navbar';
+import { Home } from './pages/Home';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-const App: () => JSX.Element = () => {
+import Login from './components/Login';
+import Register from './components/Register';
+
+const App = () => {
   return (
-    <>
-      <Navbar searchInput authenticationBtn />
-    </>
+    <BrowserRouter>
+      <React.StrictMode>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </React.StrictMode>
+    </BrowserRouter>
   );
 };
 
