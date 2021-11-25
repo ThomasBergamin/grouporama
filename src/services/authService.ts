@@ -9,12 +9,17 @@ class AuthService {
       password,
     });
     if (response.data.token) {
-      localStorage.setItem('user', JSON.stringify(response.data));
+      console.log('add to localStorage');
+      localStorage.setItem(
+        'user',
+        JSON.stringify({ ...response.data, isLoggedIn: true }),
+      );
     }
     return response.data;
   }
 
   logout() {
+    console.log('removed from localStorage');
     localStorage.removeItem('user');
   }
 

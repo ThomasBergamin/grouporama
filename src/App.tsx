@@ -14,9 +14,17 @@ import { AuthProvider } from './contexts/Auth/Auth';
 import { useAuth } from './contexts/Auth/useAuth';
 
 const AuthenticatedRoute = ({ ...props }: RouteProps) => {
-  const auth = useAuth();
+  const { isLoggedIn } = useAuth();
 
-  if (!auth.isLoggedIn) return <Redirect to="/login" />;
+  if (!isLoggedIn) return <Redirect to="/login" />;
+
+  return <Route {...props} />;
+};
+
+const UnauthenticatedRoute = ({ ...props }: RouteProps) => {
+  const { isLoggedIn } = useAuth();
+
+  if (isLoggedIn) return <Redirect to="/home" />;
 
   return <Route {...props} />;
 };
@@ -25,9 +33,8 @@ const Router = () => {
   return (
     <Switch>
       <AuthenticatedRoute exact path="/home" component={Home} />
-      <Route exact path="/login" component={Login} />
-      <Route exact path="/register" component={Register} />
-      <Redirect from="*" to="/home" />
+      <UnauthenticatedRoute exact path="/login" component={Login} />
+      <UnauthenticatedRoute exact path="/register" component={Register} />
     </Switch>
   );
 };

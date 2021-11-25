@@ -24,34 +24,36 @@ export const AuthProvider = ({
     userId: '',
   });
 
-  useEffect(() => {
-    console.log('useEffect triggered');
-    function checkUserData() {
-      console.log('checkUserData triggered');
-      const user = authService.getCurrentUser();
+  const checkUserData = () => {
+    console.log('Checking User Data');
+    const user = authService.getCurrentUser();
 
-      if (user && user.token) {
-        console.log('user Logged In triggered');
-        setCurrentUser({
-          isLoggedIn: true,
-          token: user.token,
-          userId: user.userId,
-        });
-      } else {
-        setCurrentUser({
-          isLoggedIn: false,
-          token: '',
-          userId: '',
-        });
-      }
+    if (user && user.token) {
+      setCurrentUser({
+        isLoggedIn: true,
+        token: user.token,
+        userId: user.userId,
+      });
+    } else {
+      setCurrentUser({
+        isLoggedIn: false,
+        token: '',
+        userId: '',
+      });
     }
+  };
 
+  useEffect(() => {
+    checkUserData();
+  }, []);
+
+  useEffect(() => {
     window.addEventListener('storage', checkUserData);
 
     return () => {
       window.removeEventListener('storage', checkUserData);
     };
-  }); //listener sur le local Storage
+  }, []); //listener sur le local Storage
 
   return (
     <AuthContext.Provider value={currentUser}>{children}</AuthContext.Provider>

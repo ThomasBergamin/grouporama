@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import authService from '../../services/authService';
+import Button from '../Button';
 import Navbar from '../Navbar/Navbar';
 
 const Register = () => {
@@ -7,11 +9,16 @@ const Register = () => {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const history = useHistory();
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    authService.register(lastName, firstName, email, password);
+    authService
+      .register(lastName, firstName, email, password)
+      .then(() => history.push('/home'))
+      .catch((error) => console.log(error));
   };
+
   return (
     <>
       <Navbar />
@@ -48,7 +55,7 @@ const Register = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
-        <input type="submit" />
+        <Button type="submit" primary label="Submit" onClick={handleSubmit} />
       </form>
     </>
   );
