@@ -6,7 +6,8 @@ interface IButton {
   primary?: boolean;
   secondary?: boolean;
   tertiary?: boolean;
-  onClick?: () => void;
+  onClick?: (event: any) => void;
+  type?: 'button' | 'submit' | 'reset';
 }
 
 const Button: ({
@@ -15,12 +16,14 @@ const Button: ({
   secondary,
   onClick,
   tertiary,
+  type,
 }: IButton) => JSX.Element = ({
   label,
   primary,
   secondary,
   onClick,
   tertiary,
+  type,
 }: IButton) => {
   const baseClass =
     'transition-colors shadow-lg text-white py-2 px-4 rounded-full';
@@ -32,6 +35,7 @@ const Button: ({
         'bg-tertiary hover:bg-tertiaryDark': tertiary,
       })}
       onClick={onClick}
+      type={type}
     >
       {label}
     </button>

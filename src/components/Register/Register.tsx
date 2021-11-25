@@ -10,12 +10,11 @@ const Register = () => {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    console.log(firstName, lastName, email, password);
     authService.register(lastName, firstName, email, password);
   };
   return (
     <>
-      <Navbar authenticationBtn />
+      <Navbar />
       <form onSubmit={handleSubmit}>
         <label>
           Enter your first name:
