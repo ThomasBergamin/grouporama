@@ -19,7 +19,7 @@ module.exports = {
         tertiaryDark: colors.indigo[600],
         lightGray: colors.coolGray[50],
         gray: colors.coolGray[200],
-        darkGray: colors.coolGray[400],
+        darkGray: colors.coolGray[500],
         black: colors.trueGray[900],
       },
     },
