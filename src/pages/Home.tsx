@@ -1,8 +1,11 @@
 import Navbar from '../components/Navbar';
 import React from 'react';
 import Card from '../components/GifCard';
+import { useGifs } from '../hooks/useGifs';
+import CardList from '../components/CardList.tsx';
 
 export const Home = () => {
+  const { gifs } = useGifs();
   return (
     <>
       <Navbar />
@@ -13,7 +16,7 @@ export const Home = () => {
           imageUrl={
             'https://media3.giphy.com/media/icUEIrjnUuFCWDxFpU/giphy.gif?cid=ecf05e47stblsdjx7i64s2gt83ds881bdh0cpj401hfut29z&rid=giphy.gif&ct=g'
           }
-          title="Mon premier gif"
+          title="Salut tout le monde !"
         />
         <Card
           authorImg="https://wac-cdn.atlassian.com/fr/dam/jcr:ba03a215-2f45-40f5-8540-b2015223c918/Max-R_Headshot%20(1).jpg?cdnVersion=99"
@@ -24,6 +27,7 @@ export const Home = () => {
           title="Test"
         />
       </div>
+      {gifs && <CardList gifs={gifs} />}
     </>
   );
 };
