@@ -12,6 +12,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import { AuthProvider } from './contexts/Auth/Auth';
 import { useAuth } from './contexts/Auth/useAuth';
+import { GifDetail } from './pages/GifDetail';
 
 const AuthenticatedRoute = ({ ...props }: RouteProps) => {
   const { isLoggedIn } = useAuth();
@@ -33,6 +34,7 @@ const Router = () => {
   return (
     <Switch>
       <AuthenticatedRoute exact path="/home" component={Home} />
+      <AuthenticatedRoute exact path="/gif/:id" component={GifDetail} />
       <UnauthenticatedRoute exact path="/login" component={Login} />
       <UnauthenticatedRoute exact path="/register" component={Register} />
     </Switch>

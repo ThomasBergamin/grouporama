@@ -1,22 +1,32 @@
 import React from 'react';
+import { useHistory } from 'react-router';
 
 interface IGifCard {
+  id: string;
   title: string;
   authorName?: string;
   authorImg?: string;
   imageUrl?: string;
 }
 
-const GifCard = ({ title, imageUrl, authorName, authorImg }: IGifCard) => {
+const GifCard = ({ title, imageUrl, authorName, authorImg, id }: IGifCard) => {
+  const history = useHistory();
+  const goToDetail = () => {
+    history.push(`gif/${id}`);
+  };
   return (
     <div
       className="bg-white p-4 border-0 border-transparent rounded-md shadow-lg w-2/5 
     "
     >
-      <h2 className="font-bold text-xl mb-4 text-black cursor-pointer transform transition hover:text-primary">
+      <h2
+        onClick={goToDetail}
+        className="font-bold text-xl mb-4 text-black cursor-pointer transform transition hover:text-primary"
+      >
         {title}
       </h2>
       <img
+        onClick={goToDetail}
         className="w-full rounded-md cursor-pointer"
         src={imageUrl}
         alt={`Gif posté par ${authorName}`}

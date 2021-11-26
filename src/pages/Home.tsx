@@ -11,6 +11,7 @@ export const Home = () => {
       <Navbar />
       <div className="m-3 mt-8 flex-col flex gap-8 items-center justify-center">
         <Card
+          id="test"
           authorImg="https://images.pexels.com/photos/2589653/pexels-photo-2589653.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
           authorName="Ludovic B."
           imageUrl={
@@ -19,6 +20,7 @@ export const Home = () => {
           title="Salut tout le monde !"
         />
         <Card
+          id="test"
           authorImg="https://wac-cdn.atlassian.com/fr/dam/jcr:ba03a215-2f45-40f5-8540-b2015223c918/Max-R_Headshot%20(1).jpg?cdnVersion=99"
           authorName="Thomas B."
           imageUrl={

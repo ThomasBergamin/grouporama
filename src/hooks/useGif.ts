@@ -2,20 +2,20 @@ import { useState, useEffect } from 'react';
 import { IGif } from '../common/model/IGif';
 import dbService from '../services/dbService';
 
-export const useGifs = () => {
-  const [gifs, setGifs] = useState<IGif[]>();
+export const useGif = (id: string) => {
+  const [gif, setGif] = useState<IGif>();
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    setLoading(true);
     const controller = new AbortController();
     const signal = controller.signal;
+    setLoading(true);
     dbService
-      .getGifs(signal)
-      .then((response) => setGifs(response.data))
+      .getGif(id, signal)
+      .then((response) => setGif(response.data))
       .catch((error) => console.log(error));
     return () => controller.abort();
   });
 
-  return { loading, gifs };
+  return { loading, gif };
 };

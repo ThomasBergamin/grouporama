@@ -18,11 +18,20 @@ const Navbar = ({
     authService.logout();
     history.push('/login');
   };
+
+  const backHome = () => {
+    history.push('/home');
+  };
+
   return (
     <nav className="bg-pink sticky z-50 top-0 shadow-md">
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
         <div className="flex items-center container py-2">
-          <img src={logo} className="max-h-10 mx-2" />
+          <img
+            onClick={backHome}
+            src={logo}
+            className="cursor-pointer max-h-10 mx-2"
+          />
 
           {searchInput && (
             <div className="mx-auto my-auto">

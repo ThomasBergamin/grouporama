@@ -4,9 +4,22 @@ import authHeader from './authHeader';
 const API_URL = 'http://localhost:3001/api/';
 
 class dbService {
-  getGifs() {
+  getGifs(signal: AbortSignal) {
     const token = authHeader();
-    return axios.get(API_URL + 'gifs', { headers: token });
+    return axios.get(API_URL + 'gifs', { headers: token, signal });
+  }
+
+  getGif(id: string, signal: AbortSignal) {
+    const token = authHeader();
+    return axios.get(API_URL + `gif/${id}`, { headers: token, signal });
+  }
+
+  getGifComments(id: string, signal: AbortSignal) {
+    const token = authHeader();
+    return axios.get(API_URL + `gif/${id}/comments`, {
+      headers: token,
+      signal,
+    });
   }
 
   /* getComments() {
