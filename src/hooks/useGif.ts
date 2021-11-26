@@ -7,15 +7,16 @@ export const useGif = (id: string) => {
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
+    setLoading(true);
     const controller = new AbortController();
     const signal = controller.signal;
-    setLoading(true);
+
     dbService
       .getGif(id, signal)
       .then((response) => setGif(response.data))
       .catch((error) => console.log(error));
     return () => controller.abort();
-  });
+  }, []);
 
   return { loading, gif };
 };

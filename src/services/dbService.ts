@@ -11,12 +11,12 @@ class dbService {
 
   getGif(id: string, signal: AbortSignal) {
     const token = authHeader();
-    return axios.get(API_URL + `gif/${id}`, { headers: token, signal });
+    return axios.get(API_URL + `gifs/${id}`, { headers: token, signal });
   }
 
   getGifComments(id: string, signal: AbortSignal) {
     const token = authHeader();
-    return axios.get(API_URL + `gif/${id}/comments`, {
+    return axios.get(API_URL + `gifs/${id}/comments`, {
       headers: token,
       signal,
     });

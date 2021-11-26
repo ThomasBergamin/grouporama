@@ -15,7 +15,7 @@ export const useGifs = () => {
       .then((response) => setGifs(response.data))
       .catch((error) => console.log(error));
     return () => controller.abort();
-  });
+  }, []);
 
   return { loading, gifs };
 };

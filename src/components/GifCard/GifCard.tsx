@@ -12,7 +12,7 @@ interface IGifCard {
 const GifCard = ({ title, imageUrl, authorName, authorImg, id }: IGifCard) => {
   const history = useHistory();
   const goToDetail = () => {
-    history.push(`gif/${id}`);
+    history.push(`gifs/${id}`);
   };
   return (
     <div

@@ -7,7 +7,6 @@ import { useParams } from 'react-router-dom';
 export const GifDetail = () => {
   const { id } = useParams<Record<string, string>>();
   const { gif } = useGif(id);
-  console.log('triggered');
   return (
     <>
       <Navbar />

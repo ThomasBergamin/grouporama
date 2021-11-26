@@ -34,7 +34,7 @@ const Router = () => {
   return (
     <Switch>
       <AuthenticatedRoute exact path="/home" component={Home} />
-      <AuthenticatedRoute exact path="/gif/:id" component={GifDetail} />
+      <AuthenticatedRoute exact path="/gifs/:id" component={GifDetail} />
       <UnauthenticatedRoute exact path="/login" component={Login} />
       <UnauthenticatedRoute exact path="/register" component={Register} />
     </Switch>
