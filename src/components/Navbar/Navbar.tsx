@@ -19,7 +19,7 @@ const Navbar = ({
     history.push('/login');
   };
   return (
-    <nav className="bg-pink">
+    <nav className="bg-pink sticky z-50 top-0 shadow-md">
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
         <div className="flex items-center container py-2">
           <img src={logo} className="max-h-10 mx-2" />

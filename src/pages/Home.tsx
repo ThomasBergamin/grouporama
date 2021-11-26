@@ -6,12 +6,22 @@ export const Home = () => {
   return (
     <>
       <Navbar />
-      <div className="m-3">
+      <div className="m-3 mt-8 flex-col flex gap-8 items-center justify-center">
         <Card
+          authorImg="https://images.pexels.com/photos/2589653/pexels-photo-2589653.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+          authorName="Ludovic B."
           imageUrl={
-            'https://upload.wikimedia.org/wikipedia/commons/2/20/Red_Slate_Mountain_1.jpg'
+            'https://media3.giphy.com/media/icUEIrjnUuFCWDxFpU/giphy.gif?cid=ecf05e47stblsdjx7i64s2gt83ds881bdh0cpj401hfut29z&rid=giphy.gif&ct=g'
           }
           title="Mon premier gif"
+        />
+        <Card
+          authorImg="https://wac-cdn.atlassian.com/fr/dam/jcr:ba03a215-2f45-40f5-8540-b2015223c918/Max-R_Headshot%20(1).jpg?cdnVersion=99"
+          authorName="Thomas B."
+          imageUrl={
+            'https://media4.giphy.com/media/bzE1WAm8BifiE/giphy.gif?cid=ecf05e47wk4ipbiejpg9c9nvs4iibhb0me0f843thhwxc0gh&rid=giphy.gif&ct=g'
+          }
+          title="Test"
         />
       </div>
     </>
