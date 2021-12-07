@@ -3,13 +3,18 @@ import React from 'react';
 import Card from '../components/GifCard';
 import { useGifs } from '../hooks/useGifs';
 import CardList from '../components/CardList.tsx';
+import Button from '../components/Button';
+import { useHistory } from 'react-router';
 
 export const Home = () => {
   const { gifs } = useGifs();
+  const history = useHistory();
+  const handlePost = () => history.push('post');
   return (
     <>
       <Navbar />
       <div className="m-3 mt-8 flex-col flex gap-8 items-center justify-center">
+        <Button label="Post a gif" primary onClick={handlePost} />
         <Card
           id="test"
           authorImg="https://images.pexels.com/photos/2589653/pexels-photo-2589653.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"

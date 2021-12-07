@@ -22,6 +22,20 @@ class dbService {
     });
   }
 
+  postGif(userId: string, title: string, url: string) {
+    const token = authHeader();
+    console.log(token);
+    return axios.post(
+      API_URL + `gifs/`,
+      {
+        userId,
+        title,
+        url,
+      },
+      { headers: token },
+    );
+  }
+
   /* getComments() {
     return axios.get(API_URL + 'comments', { headers: authHeader() });
   } */
