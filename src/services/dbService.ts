@@ -22,18 +22,20 @@ class dbService {
     });
   }
 
-  postGif(userId: string, title: string, url: string) {
+  postGif(userId: string, title: string, url?: string, file?: File) {
     const token = authHeader();
-    console.log(token);
-    return axios.post(
-      API_URL + `gifs/`,
-      {
-        userId,
-        title,
-        url,
-      },
-      { headers: token },
-    );
+    const formData = new FormData();
+    if (file) {
+      formData.append('selectedFile', file);
+    } else if (url) {
+      formData.append('url', url);
+    }
+    formData.append('userId', userId);
+    formData.append('title', title);
+
+    return axios.post(API_URL + `gifs/`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data', ...token },
+    });
   }
 
   /* getComments() {

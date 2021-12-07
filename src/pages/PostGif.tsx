@@ -8,19 +8,32 @@ import Button from '../components/Button';
 export const PostGif = () => {
   const { userId } = useAuth();
   const [title, setTitle] = useState('');
-  const [fileName, setFileName] = useState('');
+  const [file, setFile] = useState<File>();
   const [url, setUrl] = useState('');
   const history = useHistory();
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    const urlLink = fileName ? fileName : url;
-    dbService
-      .postGif(userId, title, urlLink)
-      .then(() => history.push('/home'))
-      .catch((error) => console.log(error));
+    if (file) {
+      dbService
+        .postGif(userId, title, undefined, file)
+        .then(() => history.push('/home'))
+        .catch((error) => console.log(error));
+    } else {
+      dbService
+        .postGif(userId, title, url)
+        .then(() => history.push('/home'))
+        .catch((error) => console.log(error));
+    }
   };
 
+  const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.files) {
+      return;
+    }
+    const file = event.target.files[0];
+    setFile(file);
+  };
   return (
     <>
       <Navbar />
@@ -46,10 +59,10 @@ export const PostGif = () => {
             Insert file:
             <input
               type="file"
+              name="image"
               id="imageFile"
               accept="image/png, image/jpeg, image/jpg, image/gif"
-              value={fileName}
-              onChange={(e) => setFileName(e.target.value)}
+              onChange={handleUpload}
             />
           </label>
 
