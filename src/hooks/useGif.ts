@@ -3,7 +3,6 @@ import { IGif } from '../common/model/IGif';
 import dbService from '../services/dbService';
 
 export const useGif = (id: string) => {
-  console.log('received id', id);
   const [gif, setGif] = useState<IGif>();
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -16,7 +15,6 @@ export const useGif = (id: string) => {
       .getGif(id, signal)
       .then((response) => {
         setGif(response.data);
-        console.log(response);
         setLoading(false);
       })
       .catch((error) => console.log(error));

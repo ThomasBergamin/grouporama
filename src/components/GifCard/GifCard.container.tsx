@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { IGif } from '../../common/model/IGif';
 import { useGifAuthor } from '../../hooks/useGifAuthor';
+import Loader from '../Loader';
 import GifCard from './GifCard.component';
 
 interface IGifCardContainer {
@@ -8,16 +9,22 @@ interface IGifCardContainer {
 }
 
 const GifCardContainer = ({ gif }: IGifCardContainer) => {
-  const { gifAuthor } = useGifAuthor(gif.userId);
-  console.log(gif);
-  return (
+  const { gifAuthor, loading } = useGifAuthor(gif.userId);
+  const gifDate = gif.createdAt.split('T')[0];
+  const gifHour = gif.createdAt.split('T')[1].substring(0, 5);
+
+  return !loading ? (
     <GifCard
       title={gif.title}
       id={gif.id}
       authorName={gifAuthor?.firstName}
       key={gif.id}
       imageUrl={gif.url}
+      date={gifDate}
+      hours={gifHour}
     />
+  ) : (
+    <Loader />
   );
 };
 

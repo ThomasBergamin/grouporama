@@ -7,14 +7,23 @@ interface IGifCard {
   authorName?: string;
   authorImg?: string;
   imageUrl?: string;
+  date?: string;
+  hours?: string;
 }
 
-const GifCard = ({ title, imageUrl, authorName, authorImg, id }: IGifCard) => {
+const GifCard = ({
+  title,
+  imageUrl,
+  authorName,
+  authorImg,
+  id,
+  date,
+  hours,
+}: IGifCard) => {
   const history = useHistory();
   const goToDetail = () => {
     history.push(`gifs/${id}`);
   };
-  console.log(title);
   return (
     <div
       className="bg-white p-4 border-0 border-transparent rounded-md shadow-lg w-2/5 
@@ -35,16 +44,18 @@ const GifCard = ({ title, imageUrl, authorName, authorImg, id }: IGifCard) => {
 
       <div className="flex mt-4 place-content-end items-center">
         <p className="text-darkGray pr-2">
-          Il y a 4h ·
+          {date} - {hours} ·
           <span className="italic text-primary cursor-pointer transform transition hover:text-secondary ">
-            {authorName}
+            {' ' + authorName}
           </span>
         </p>
-        <img
-          className="inline cursor-pointer object-cover w-12 h-12 mr-2 rounded-full transform transition duration-500 hover:shadow-lg hover:scale-105"
-          src={authorImg}
-          alt="Image de profil"
-        />
+        {authorImg && (
+          <img
+            className="inline cursor-pointer object-cover w-12 h-12 mr-2 rounded-full transform transition duration-500 hover:shadow-lg hover:scale-105"
+            src={authorImg}
+            alt="Image de profil"
+          />
+        )}
       </div>
     </div>
   );

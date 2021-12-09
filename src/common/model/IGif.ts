@@ -3,4 +3,6 @@ export interface IGif {
   readonly userId: string;
   readonly title: string;
   readonly url: string;
+  readonly createdAt: string;
+  readonly updatedAt: string;
 }

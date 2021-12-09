@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import dbService from '../services/dbService';
 
 export const useGifAuthor = (id: string) => {
-  console.log(id);
   const [gifAuthor, setGifAuthor] =
     useState<{ id: string; lastName: string; firstName: string }>();
   const [loading, setLoading] = useState<boolean>(false);
