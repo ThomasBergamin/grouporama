@@ -1,1 +1,1 @@
-export { default } from './GifCard';
+export { default } from './GifCard.container';

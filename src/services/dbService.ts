@@ -38,6 +38,11 @@ class dbService {
     });
   }
 
+  getUser(userId: string, signal: AbortSignal) {
+    const token = authHeader();
+    return axios.get(API_URL + `users/${userId}`, { headers: token, signal });
+  }
+
   /* getComments() {
     return axios.get(API_URL + 'comments', { headers: authHeader() });
   } */

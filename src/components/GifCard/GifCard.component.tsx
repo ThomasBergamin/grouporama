@@ -14,6 +14,7 @@ const GifCard = ({ title, imageUrl, authorName, authorImg, id }: IGifCard) => {
   const goToDetail = () => {
     history.push(`gifs/${id}`);
   };
+  console.log(title);
   return (
     <div
       className="bg-white p-4 border-0 border-transparent rounded-md shadow-lg w-2/5 

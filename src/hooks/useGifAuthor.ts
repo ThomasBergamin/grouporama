@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { IGif } from '../common/model/IGif';
 import dbService from '../services/dbService';
 
-export const useGif = (id: string) => {
-  console.log('received id', id);
-  const [gif, setGif] = useState<IGif>();
+export const useGifAuthor = (id: string) => {
+  console.log(id);
+  const [gifAuthor, setGifAuthor] =
+    useState<{ id: string; lastName: string; firstName: string }>();
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -13,15 +13,14 @@ export const useGif = (id: string) => {
     const signal = controller.signal;
 
     dbService
-      .getGif(id, signal)
+      .getUser(id, signal)
       .then((response) => {
-        setGif(response.data);
-        console.log(response);
+        setGifAuthor(response.data);
         setLoading(false);
       })
       .catch((error) => console.log(error));
     return () => controller.abort();
   }, []);
 
-  return { loading, gif };
+  return { loading, gifAuthor };
 };

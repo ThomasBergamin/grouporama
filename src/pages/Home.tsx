@@ -1,10 +1,10 @@
 import Navbar from '../components/Navbar';
 import React from 'react';
-import Card from '../components/GifCard';
 import { useGifs } from '../hooks/useGifs';
 import CardList from '../components/CardList.tsx';
 import Button from '../components/Button';
 import { useHistory } from 'react-router';
+import Card from '../components/GifCard/GifCard.component';
 
 export const Home = () => {
   const { gifs } = useGifs();

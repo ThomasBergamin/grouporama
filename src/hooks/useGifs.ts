@@ -12,7 +12,10 @@ export const useGifs = () => {
     const signal = controller.signal;
     dbService
       .getGifs(signal)
-      .then((response) => setGifs(response.data))
+      .then((response) => {
+        setGifs(response.data);
+        setLoading(false);
+      })
       .catch((error) => console.log(error));
     return () => controller.abort();
   }, []);

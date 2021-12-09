@@ -6,11 +6,12 @@ import { useParams } from 'react-router-dom';
 
 export const GifDetail = () => {
   const { id } = useParams<Record<string, string>>();
-  const { gif } = useGif(id);
+  const { gif, loading } = useGif(id);
+  !loading && console.log(gif);
   return (
     <>
       <Navbar />
-      {gif && <Card id={id} title={gif.title} />}
+      {!loading && gif && <Card gif={gif} />}
     </>
   );
 };
