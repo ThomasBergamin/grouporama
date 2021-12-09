@@ -14,7 +14,7 @@ export const Home = () => {
     <>
       <Navbar />
       <div className="fixed bottom-12 right-12">
-        <Button label="Post a gif" primary onClick={handlePost} />
+        <Button label="Poster un gif" primary onClick={handlePost} />
       </div>
       <div className="m-3 mt-8 flex-col flex gap-8 items-center justify-center">
         {!loading ? gifs && <CardList gifs={gifs} /> : <Loader />}
