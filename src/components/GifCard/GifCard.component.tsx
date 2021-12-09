@@ -44,7 +44,7 @@ const GifCard = ({
 
       <div className="flex mt-4 place-content-end items-center">
         <p className="text-darkGray pr-2">
-          {date} - {hours} ·
+          Le {date} à {hours} ·
           <span className="italic text-primary cursor-pointer transform transition hover:text-secondary ">
             {' ' + authorName}
           </span>
