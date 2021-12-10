@@ -6,7 +6,7 @@ interface IButton {
   primary?: boolean;
   secondary?: boolean;
   tertiary?: boolean;
-  onClick?: (event: any) => void;
+  onClick?: (event: React.MouseEvent<HTMLElement>) => void;
   type?: 'button' | 'submit' | 'reset';
 }
 
