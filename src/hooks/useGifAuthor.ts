@@ -15,7 +15,6 @@ export const useGifAuthor = (id: string) => {
       .getUser(id, signal)
       .then((response) => {
         setGifAuthor(response.data);
-        console.log(response.data);
         setLoading(false);
       })
       .catch((error) => console.log(error));

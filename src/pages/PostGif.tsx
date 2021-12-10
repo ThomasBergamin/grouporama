@@ -16,6 +16,8 @@ export const PostGif = () => {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 
+    console.log({ file });
+
     // Form validation
     if (file) {
       dbService
@@ -41,7 +43,7 @@ export const PostGif = () => {
     <>
       <Navbar />
       <div className="m-3 mt-8 flex-col flex gap-8 items-center justify-center">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} encType="multipart/form-data">
           <div className="mb-6">
             <Input
               label="Titre du gif :"

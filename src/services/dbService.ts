@@ -26,12 +26,13 @@ class dbService {
     const token = authHeader();
     const formData = new FormData();
     if (file) {
-      formData.append('selectedFile', file);
+      formData.append('image', file);
     } else if (url) {
       formData.append('url', url);
     }
     formData.append('userId', userId);
     formData.append('title', title);
+    console.log({ formData });
 
     return axios.post(API_URL + `gifs/`, formData, {
       headers: { 'Content-Type': 'multipart/form-data', ...token },
