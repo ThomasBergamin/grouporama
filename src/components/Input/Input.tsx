@@ -1,24 +1,56 @@
-import React from 'react';
-import { FaSearch } from 'react-icons/fa';
+import React, { useEffect, useState } from 'react';
 
 interface IInput {
   placeholder: string;
+  type: string;
+  value: string;
+  label: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  leftIcon?: JSX.Element;
 }
 
-const Input: ({ placeholder }: IInput) => JSX.Element = ({
+const Input: ({
   placeholder,
+  leftIcon,
+  type,
+  value,
+  onChange,
+  label,
+}: IInput) => JSX.Element = ({
+  placeholder,
+  leftIcon,
+  type,
+  value,
+  label,
+  onChange,
 }: IInput) => {
+  const [className, setClassName] = useState(
+    'shadow border-transparent appearance-none border rounded w-full py-2 px-3 placeholder-darkGray leading-tight focus:outline-none focus:shadow-outline',
+  );
+
+  useEffect(() => {
+    if (leftIcon) {
+      console.log('leftiCon');
+      setClassName(className + ' pl-9');
+    }
+  }, [leftIcon]);
+
   return (
-    <div className="relative">
-      <input
-        className="py-1 px-10 transition border-darkGray ring-darkGray ring-2 rounded-full focus:outline-none focus:ring focus:ring-primary focus:border-transparent"
-        type="text"
-        placeholder={placeholder}
-      ></input>
-      <div className="absolute top-2 left-3">
-        <FaSearch className="text-primary" />
+    <>
+      <label className="block text-primary text-sm font-bold mb-2">
+        {label}
+      </label>
+      <div className="relative">
+        {leftIcon && <div className="absolute top-3 left-3">{leftIcon}</div>}
+        <input
+          className={className}
+          type={type}
+          placeholder={placeholder}
+          onChange={onChange}
+          value={value}
+        ></input>
       </div>
-    </div>
+    </>
   );
 };
 

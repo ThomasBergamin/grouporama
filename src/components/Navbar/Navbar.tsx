@@ -35,7 +35,7 @@ const Navbar = ({
 
           {searchInput && (
             <div className="mx-auto my-auto">
-              <Input placeholder="Rechercher un gif :" />
+              {/*  <Input placeholder="Rechercher un gif :" /> */}
             </div>
           )}
           {isLoggedIn ? (
