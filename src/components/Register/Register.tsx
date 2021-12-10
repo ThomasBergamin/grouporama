@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
+import { BiLockAlt } from 'react-icons/bi';
+import { BsFillPersonFill } from 'react-icons/bs';
+import { MdAlternateEmail } from 'react-icons/md';
 import { useHistory } from 'react-router-dom';
 import authService from '../../services/authService';
 import Button from '../Button';
+import Input from '../Input';
 import Navbar from '../Navbar/Navbar';
 
 const Register = () => {
@@ -11,52 +15,77 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const history = useHistory();
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
+
+    // validation du formulaire
     authService
       .register(lastName, firstName, email, password)
-      .then(() => history.push('/home'))
+      .then(() => {
+        history.push('/home');
+      })
       .catch((error) => console.log(error));
   };
 
   return (
     <>
       <Navbar />
-      <form onSubmit={handleSubmit}>
-        <label>
-          Enter your first name:
-          <input
-            type="text"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-          />
-        </label>
-        <label>
-          Enter your last name:
-          <input
-            type="text"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-          />
-        </label>
-        <label>
-          Enter your email:
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </label>
-        <label>
-          Enter your password:
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </label>
-        <Button type="submit" primary label="Submit" onClick={handleSubmit} />
-      </form>
+      <div className="flex items-center justify-center mt-3 ">
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-4/12"
+        >
+          <div className="mb-4">
+            <Input
+              placeholder="John"
+              label="Enter your first name:"
+              type="text"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              leftIcon={<BsFillPersonFill />}
+              required
+            />
+          </div>
+
+          <div className="mb-4">
+            <Input
+              label="Enter your last name:"
+              placeholder="Doe"
+              type="text"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              leftIcon={<BsFillPersonFill />}
+              required
+            />
+          </div>
+
+          <div className="mb-4">
+            <Input
+              label="Enter your email:"
+              placeholder="mon_email@email.com"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              leftIcon={<MdAlternateEmail />}
+              required
+            />
+          </div>
+
+          <div className="mb-6">
+            <Input
+              placeholder="******"
+              label="Enter your password:"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              leftIcon={<BiLockAlt />}
+              required
+            />
+          </div>
+
+          <Button type="submit" primary label="Submit" onClick={handleSubmit} />
+        </form>
+      </div>
     </>
   );
 };

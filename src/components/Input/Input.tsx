@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
 interface IInput {
-  placeholder: string;
+  placeholder?: string;
   type: string;
   value: string;
   label: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   leftIcon?: JSX.Element;
+  required?: boolean;
 }
 
 const Input: ({
@@ -16,6 +17,7 @@ const Input: ({
   value,
   onChange,
   label,
+  required,
 }: IInput) => JSX.Element = ({
   placeholder,
   leftIcon,
@@ -23,6 +25,7 @@ const Input: ({
   value,
   label,
   onChange,
+  required,
 }: IInput) => {
   const [className, setClassName] = useState(
     'shadow border-transparent appearance-none border rounded w-full py-2 px-3 placeholder-darkGray leading-tight focus:outline-none focus:shadow-outline',
@@ -30,7 +33,6 @@ const Input: ({
 
   useEffect(() => {
     if (leftIcon) {
-      console.log('leftiCon');
       setClassName(className + ' pl-9');
     }
   }, [leftIcon]);
@@ -43,6 +45,7 @@ const Input: ({
       <div className="relative">
         {leftIcon && <div className="absolute top-3 left-3">{leftIcon}</div>}
         <input
+          required={required}
           className={className}
           type={type}
           placeholder={placeholder}

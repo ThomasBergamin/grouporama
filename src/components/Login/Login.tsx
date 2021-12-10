@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import { useAuth } from '../../contexts/Auth/useAuth';
 import authService from '../../services/authService';
@@ -14,8 +14,9 @@ const Login = () => {
   const history = useHistory();
   const auth = useAuth();
 
-  const handleSubmit = async (event: any) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
+    // validation du formulaire
 
     const success = await authService.login(email, password);
     if (success) {
@@ -37,11 +38,12 @@ const Login = () => {
           <div className="mb-4">
             <Input
               label="Email :"
-              placeholder="mon__email@email.com"
+              placeholder="mon_email@email.com"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               leftIcon={<MdAlternateEmail />}
+              required
             />
           </div>
           <div className="mb-6">
@@ -52,6 +54,7 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               leftIcon={<BiLockAlt />}
+              required
             />
           </div>
           <div className="flex items-center justify-between">
