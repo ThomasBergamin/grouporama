@@ -35,10 +35,10 @@ const Register = () => {
           onSubmit={handleSubmit}
           className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-4/12"
         >
-          <div className="mb-4">
+          <div className="mb-6">
             <Input
               placeholder="John"
-              label="Enter your first name:"
+              label="Ton prénom :"
               type="text"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
@@ -47,9 +47,9 @@ const Register = () => {
             />
           </div>
 
-          <div className="mb-4">
+          <div className="mb-6">
             <Input
-              label="Enter your last name:"
+              label="Ton nom de famille :"
               placeholder="Doe"
               type="text"
               value={lastName}
@@ -59,9 +59,9 @@ const Register = () => {
             />
           </div>
 
-          <div className="mb-4">
+          <div className="mb-6">
             <Input
-              label="Enter your email:"
+              label="Ton email :"
               placeholder="mon_email@email.com"
               type="email"
               value={email}
@@ -74,7 +74,7 @@ const Register = () => {
           <div className="mb-6">
             <Input
               placeholder="******"
-              label="Enter your password:"
+              label="Ton mot de passe :"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}

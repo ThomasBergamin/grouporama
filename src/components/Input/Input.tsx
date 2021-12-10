@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { HTMLInputTypeAttribute, useEffect, useState } from 'react';
 
 interface IInput {
   placeholder?: string;
-  type: string;
-  value: string;
+  type: HTMLInputTypeAttribute;
+  value?: string;
   label: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   leftIcon?: JSX.Element;
   required?: boolean;
+  name?: string;
+  id?: string;
+  accept?: string;
 }
 
 const Input: ({
@@ -18,6 +21,9 @@ const Input: ({
   onChange,
   label,
   required,
+  name,
+  id,
+  accept,
 }: IInput) => JSX.Element = ({
   placeholder,
   leftIcon,
@@ -26,6 +32,9 @@ const Input: ({
   label,
   onChange,
   required,
+  name,
+  id,
+  accept,
 }: IInput) => {
   const [className, setClassName] = useState(
     'shadow border-transparent appearance-none border rounded w-full py-2 px-3 placeholder-darkGray leading-tight focus:outline-none focus:shadow-outline',
@@ -45,12 +54,15 @@ const Input: ({
       <div className="relative">
         {leftIcon && <div className="absolute top-3 left-3">{leftIcon}</div>}
         <input
+          name={name}
           required={required}
           className={className}
           type={type}
           placeholder={placeholder}
           onChange={onChange}
           value={value}
+          id={id}
+          accept={accept}
         ></input>
       </div>
     </>

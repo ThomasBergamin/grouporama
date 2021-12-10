@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import dbService from '../services/dbService';
 import { useAuth } from '../contexts/Auth/useAuth';
 import Button from '../components/Button';
+import Input from '../components/Input';
 
 export const PostGif = () => {
   const { userId } = useAuth();
@@ -14,6 +15,8 @@ export const PostGif = () => {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
+
+    // Form validation
     if (file) {
       dbService
         .postGif(userId, title, undefined, file)
@@ -39,34 +42,40 @@ export const PostGif = () => {
       <Navbar />
       <div className="m-3 mt-8 flex-col flex gap-8 items-center justify-center">
         <form onSubmit={handleSubmit}>
-          <label>
-            Enter the title:
-            <input
+          <div className="mb-6">
+            <Input
+              label="Titre du gif :"
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
+              required
             />
-          </label>
-          <label>
-            Enter url:
-            <input
-              type="text"
+          </div>
+          <div className="mb-6">
+            <Input
+              label="URL du gif :"
+              type="url"
               value={url}
               onChange={(e) => setUrl(e.target.value)}
             />
-          </label>
-          <label>
-            Insert file:
-            <input
+          </div>
+          <div className="mb-6">
+            <Input
+              label="Ajouter un fichier :"
               type="file"
               name="image"
               id="imageFile"
               accept="image/png, image/jpeg, image/jpg, image/gif"
               onChange={handleUpload}
             />
-          </label>
+          </div>
 
-          <Button type="submit" primary label="Submit" onClick={handleSubmit} />
+          <Button
+            type="submit"
+            primary
+            label="Poster mon gif 🎉"
+            onClick={handleSubmit}
+          />
         </form>
       </div>
     </>
