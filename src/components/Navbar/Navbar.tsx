@@ -1,10 +1,8 @@
 import React from 'react';
-import { Link, Redirect, useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import logo from '../../img/logos/icon-left-font-monochrome-black.svg';
 import Button from '../Button';
-import Input from '../Input';
 import { useAuth } from '../../contexts/Auth/useAuth';
-import authService from '../../services/authService';
 
 const Navbar = ({
   searchInput,
@@ -12,11 +10,13 @@ const Navbar = ({
   searchInput?: boolean;
   authenticationBtn?: boolean;
 }) => {
-  const { isLoggedIn } = useAuth();
+  const auth = useAuth();
   const history = useHistory();
   const handleLogout = () => {
-    authService.logout();
-    history.push('/login');
+    if (auth) {
+      auth.logout();
+      history.push('/login');
+    }
   };
 
   const backHome = () => {
@@ -38,7 +38,7 @@ const Navbar = ({
               {/*  <Input placeholder="Rechercher un gif :" /> */}
             </div>
           )}
-          {isLoggedIn ? (
+          {auth && auth.currentUser.isLoggedIn ? (
             <div className="ml-auto flex">
               <Button onClick={handleLogout} secondary label="Se déconnecter" />
             </div>

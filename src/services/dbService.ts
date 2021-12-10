@@ -1,29 +1,48 @@
 import axios from 'axios';
-import authHeader from './authHeader';
 
 const API_URL = 'http://localhost:3001/api/';
-
 class dbService {
-  getGifs(signal: AbortSignal) {
-    const token = authHeader();
+  getGifs(
+    signal: AbortSignal,
+    token: {
+      Authorization: string;
+    },
+  ) {
     return axios.get(API_URL + 'gifs', { headers: token, signal });
   }
 
-  getGif(id: string, signal: AbortSignal) {
-    const token = authHeader();
+  getGif(
+    id: string,
+    signal: AbortSignal,
+    token: {
+      Authorization: string;
+    },
+  ) {
     return axios.get(API_URL + `gifs/${id}`, { headers: token, signal });
   }
 
-  getGifComments(id: string, signal: AbortSignal) {
-    const token = authHeader();
+  getGifComments(
+    id: string,
+    signal: AbortSignal,
+    token: {
+      Authorization: string;
+    },
+  ) {
     return axios.get(API_URL + `gifs/${id}/comments`, {
       headers: token,
       signal,
     });
   }
 
-  postGif(userId: string, title: string, url?: string, file?: File) {
-    const token = authHeader();
+  postGif(
+    userId: string,
+    title: string,
+    token: {
+      Authorization: string;
+    },
+    url?: string,
+    file?: File,
+  ) {
     const formData = new FormData();
     if (file) {
       formData.append('image', file);
@@ -32,15 +51,19 @@ class dbService {
     }
     formData.append('userId', userId);
     formData.append('title', title);
-    console.log({ formData });
 
     return axios.post(API_URL + `gifs/`, formData, {
       headers: { 'Content-Type': 'multipart/form-data', ...token },
     });
   }
 
-  getUser(userId: string, signal: AbortSignal) {
-    const token = authHeader();
+  getUser(
+    userId: string,
+    signal: AbortSignal,
+    token: {
+      Authorization: string;
+    },
+  ) {
     return axios.get(API_URL + `users/${userId}`, { headers: token, signal });
   }
 

@@ -3,7 +3,7 @@ import { BiLockAlt } from 'react-icons/bi';
 import { BsFillPersonFill } from 'react-icons/bs';
 import { MdAlternateEmail } from 'react-icons/md';
 import { useHistory } from 'react-router-dom';
-import authService from '../../services/authService';
+import { useAuth } from '../../contexts/Auth/useAuth';
 import Button from '../Button';
 import Input from '../Input';
 import Navbar from '../Navbar/Navbar';
@@ -14,17 +14,20 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory();
+  const auth = useAuth();
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 
     // validation du formulaire
-    authService
-      .register(lastName, firstName, email, password)
-      .then(() => {
-        history.push('/home');
-      })
-      .catch((error) => console.log(error));
+    if (auth) {
+      auth
+        .register(lastName, firstName, email, password)
+        .then(() => {
+          history.push('/home');
+        })
+        .catch((error: Error) => console.log(error));
+    }
   };
 
   return (

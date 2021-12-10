@@ -8,17 +8,17 @@ import { GifDetail } from './pages/GifDetail';
 import { PostGif } from './pages/PostGif';
 
 const AuthenticatedRoute = ({ ...props }: RouteProps) => {
-  const { isLoggedIn } = useAuth();
+  const auth = useAuth();
 
-  if (!isLoggedIn) return <Redirect to="/login" />;
+  if (auth && !auth.currentUser.isLoggedIn) return <Redirect to="/login" />;
 
   return <Route {...props} />;
 };
 
 const UnauthenticatedRoute = ({ ...props }: RouteProps) => {
-  const { isLoggedIn } = useAuth();
+  const auth = useAuth();
 
-  if (isLoggedIn) return <Redirect to="/home" />;
+  if (auth && auth.currentUser.isLoggedIn) return <Redirect to="/home" />;
 
   return <Route {...props} />;
 };

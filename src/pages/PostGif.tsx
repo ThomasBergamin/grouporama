@@ -7,7 +7,7 @@ import Button from '../components/Button';
 import Input from '../components/Input';
 
 export const PostGif = () => {
-  const { userId } = useAuth();
+  const auth = useAuth();
   const [title, setTitle] = useState('');
   const [file, setFile] = useState<File>();
   const [url, setUrl] = useState('');
@@ -16,19 +16,20 @@ export const PostGif = () => {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 
-    console.log({ file });
-
     // Form validation
-    if (file) {
-      dbService
-        .postGif(userId, title, undefined, file)
-        .then(() => history.push('/home'))
-        .catch((error) => console.log(error));
-    } else {
-      dbService
-        .postGif(userId, title, url)
-        .then(() => history.push('/home'))
-        .catch((error) => console.log(error));
+    if (auth) {
+      const token = auth.authHeader();
+      if (file) {
+        dbService
+          .postGif(auth.currentUser.userId, title, token, undefined, file)
+          .then(() => history.push('/home'))
+          .catch((error) => console.log(error));
+      } else {
+        dbService
+          .postGif(auth.currentUser.userId, title, token, url)
+          .then(() => history.push('/home'))
+          .catch((error) => console.log(error));
+      }
     }
   };
 

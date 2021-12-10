@@ -1,7 +1,6 @@
 import React, { FormEvent, useState } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import { useAuth } from '../../contexts/Auth/useAuth';
-import authService from '../../services/authService';
 import Button from '../Button';
 import Input from '../Input';
 import Navbar from '../Navbar/Navbar';
@@ -17,14 +16,15 @@ const Login = () => {
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     // validation du formulaire
-
-    const success = await authService.login(email, password);
-    if (success) {
-      history.push('/home');
+    if (auth) {
+      const success = await auth.login(email, password);
+      if (success) {
+        history.push('/home');
+      }
     }
   };
 
-  if (auth.isLoggedIn) return <Redirect to="/home" />;
+  if (auth && auth.currentUser.isLoggedIn) return <Redirect to="/home" />;
 
   return (
     <>
