@@ -21,6 +21,15 @@ class dbService {
     return axios.get(API_URL + `gifs/${id}`, { headers: token, signal });
   }
 
+  deleteGif(
+    id: string,
+    token: {
+      Authorization: string;
+    },
+  ) {
+    return axios.delete(API_URL + `gifs/${id}`, { headers: token });
+  }
+
   getGifComments(
     id: string,
     signal: AbortSignal,

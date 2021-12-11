@@ -68,7 +68,7 @@ const Login = () => {
               className="inline-block align-baseline font-bold text-sm text-primary hover:text-primaryDark"
               href="#"
             >
-              Mot de passe oublié?
+              Mot de passe oublié ?
             </a>
           </div>
         </form>

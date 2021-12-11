@@ -6,6 +6,7 @@ import { Redirect, Route, RouteProps, Switch } from 'react-router-dom';
 import { useAuth } from './contexts/Auth/useAuth';
 import { GifDetail } from './pages/GifDetail';
 import { PostGif } from './pages/PostGif';
+import { GifEdit } from './pages/GifEdit';
 
 const AuthenticatedRoute = ({ ...props }: RouteProps) => {
   const auth = useAuth();
@@ -29,6 +30,7 @@ export const Router = () => {
       <AuthenticatedRoute exact path="/home" component={Home} />
       <AuthenticatedRoute exact path="/post" component={PostGif} />
       <AuthenticatedRoute exact path="/gifs/:id" component={GifDetail} />
+      <AuthenticatedRoute exact path="/gifs/edit/:id" component={GifEdit} />
       <UnauthenticatedRoute exact path="/login" component={Login} />
       <UnauthenticatedRoute exact path="/register" component={Register} />
       <Route exact path="/">
