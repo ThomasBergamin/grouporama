@@ -17,7 +17,11 @@ const GifCardContainer = ({ gif }: IGifCardContainer) => {
 
   const gifDate = new Date(gif.createdAt);
   const gifDays = getDate(gifDate) + '/' + (getMonth(gifDate) + 1);
-  const gifHour = gifDate.getHours() + ':' + gifDate.getMinutes();
+  const gifHour =
+    gifDate.getHours() +
+    ':' +
+    (gifDate.getMinutes() < 10 ? '0' : '') +
+    gifDate.getMinutes();
 
   useEffect(() => {
     if (auth?.currentUser.userId === gif.userId) {
