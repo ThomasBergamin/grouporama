@@ -29,14 +29,24 @@ export const GifEdit = () => {
     if (auth) {
       const token = auth.authHeader();
       if (title) {
+        console.log('here');
         if (file) {
+          console.log('there is a file');
           dbService
-            .postGif(auth.currentUser.userId, title, token, undefined, file)
+            .updateGif(
+              auth.currentUser.userId,
+              id,
+              title,
+              token,
+              undefined,
+              file,
+            )
             .then(() => history.push('/home'))
             .catch((error) => console.log(error));
         } else {
+          console.log('no file');
           dbService
-            .postGif(auth.currentUser.userId, title, token, url)
+            .updateGif(auth.currentUser.userId, id, title, token, url)
             .then(() => history.push('/home'))
             .catch((error) => console.log(error));
         }

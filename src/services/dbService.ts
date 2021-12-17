@@ -43,7 +43,35 @@ class dbService {
     });
   }
 
-  postGif(
+  async updateGif(
+    userId: string,
+    gifId: string,
+    title: string,
+    token: {
+      Authorization: string;
+    },
+    url?: string,
+    file?: File,
+  ) {
+    const formData = new FormData();
+    if (file) {
+      formData.append('image', file);
+    } else if (url) {
+      formData.append('url', url);
+    }
+    formData.append('userId', userId);
+    formData.append('title', title);
+
+    return await axios
+      .put(API_URL + `gifs/${gifId}`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data', ...token },
+      })
+      .then((response) => {
+        console.log(response);
+      });
+  }
+
+  async postGif(
     userId: string,
     title: string,
     token: {
@@ -61,9 +89,13 @@ class dbService {
     formData.append('userId', userId);
     formData.append('title', title);
 
-    return axios.post(API_URL + `gifs/`, formData, {
-      headers: { 'Content-Type': 'multipart/form-data', ...token },
-    });
+    return await axios
+      .post(API_URL + `gifs/`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data', ...token },
+      })
+      .then((response) => {
+        console.log(response);
+      });
   }
 
   getUser(
