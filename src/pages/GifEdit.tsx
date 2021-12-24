@@ -1,11 +1,12 @@
 import Navbar from '../components/Navbar';
-import React, { FormEvent, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import { useAuth } from '../contexts/Auth/useAuth';
 import dbService from '../services/dbService';
 import { useGif } from '../hooks/useGif';
+import { useForm } from 'react-hook-form';
 
 export const GifEdit = () => {
   const auth = useAuth();
@@ -15,6 +16,15 @@ export const GifEdit = () => {
   const [file, setFile] = useState<File>();
   const [url, setUrl] = useState('');
   const history = useHistory();
+  const { register, handleSubmit } = useForm();
+
+  useEffect(() => {
+    if (gif && auth) {
+      if (gif.userId !== auth.currentUser.userId) {
+        history.push('/home');
+      }
+    }
+  });
 
   useEffect(() => {
     if (gif) {
@@ -22,16 +32,12 @@ export const GifEdit = () => {
     }
   }, [gif]);
 
-  const handleSubmit = (event: FormEvent) => {
-    event.preventDefault();
-
+  const onSubmit = () => {
     // Form validation
     if (auth) {
       const token = auth.authHeader();
       if (title) {
-        console.log('here');
         if (file) {
-          console.log('there is a file');
           dbService
             .updateGif(
               auth.currentUser.userId,
@@ -78,14 +84,16 @@ export const GifEdit = () => {
     <>
       <Navbar />
       <div className="m-3 mt-8 flex-col flex w-1/3 mx-auto">
-        <form onSubmit={handleSubmit} encType="multipart/form-data">
+        <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
           <div className="mb-6">
             <Input
               label="Titre du gif :"
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              required
+              required={{ value: true, message: 'Titre requis' }}
+              register={register}
+              name="title"
             />
           </div>
           <div className="mb-6">
@@ -94,6 +102,8 @@ export const GifEdit = () => {
               type="url"
               value={url}
               onChange={(e) => setUrl(e.target.value)}
+              register={register}
+              name="url"
             />
           </div>
           <div className="mb-6">
@@ -104,16 +114,12 @@ export const GifEdit = () => {
               id="imageFile"
               accept="image/png, image/jpeg, image/jpg, image/gif"
               onChange={handleUpload}
+              register={register}
             />
           </div>
 
           <div className="flex gap-8">
-            <Button
-              type="submit"
-              primary
-              label="Modifier mon gif 🎉"
-              onClick={handleSubmit}
-            />
+            <Button type="submit" primary label="Modifier mon gif 🎉" />
             <Button
               secondary
               label="Supprimer mon gif ⚠️"

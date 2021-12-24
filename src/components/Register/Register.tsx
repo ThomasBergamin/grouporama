@@ -1,4 +1,5 @@
-import React, { FormEvent, useState } from 'react';
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { BiLockAlt } from 'react-icons/bi';
 import { BsFillPersonFill } from 'react-icons/bs';
 import { MdAlternateEmail } from 'react-icons/md';
@@ -15,10 +16,9 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const history = useHistory();
   const auth = useAuth();
+  const { register, handleSubmit } = useForm();
 
-  const handleSubmit = (event: FormEvent) => {
-    event.preventDefault();
-
+  const onSubmit = () => {
     // validation du formulaire
     if (auth) {
       auth
@@ -35,7 +35,7 @@ const Register = () => {
       <Navbar />
       <div className="flex items-center justify-center mt-3 ">
         <form
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmit(onSubmit)}
           className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-4/12"
         >
           <div className="mb-6">
@@ -46,7 +46,9 @@ const Register = () => {
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
               leftIcon={<BsFillPersonFill />}
-              required
+              required={{ value: true, message: 'Prénom requis' }}
+              register={register}
+              name="surname"
             />
           </div>
 
@@ -58,7 +60,9 @@ const Register = () => {
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
               leftIcon={<BsFillPersonFill />}
-              required
+              required={{ value: true, message: 'Nom requis' }}
+              register={register}
+              name="name"
             />
           </div>
 
@@ -70,7 +74,9 @@ const Register = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               leftIcon={<MdAlternateEmail />}
-              required
+              required={{ value: true, message: 'Email requis' }}
+              register={register}
+              name="email"
             />
           </div>
 
@@ -82,11 +88,13 @@ const Register = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               leftIcon={<BiLockAlt />}
-              required
+              required={{ value: true, message: 'Mot de passe requis' }}
+              register={register}
+              name="password"
             />
           </div>
 
-          <Button type="submit" primary label="Submit" onClick={handleSubmit} />
+          <Button type="submit" primary label="Submit" />
         </form>
       </div>
     </>

@@ -38,14 +38,20 @@ export const AuthProvider = ({
   const API_URL = 'http://localhost:3001/api/auth/';
 
   const login = async (email: string, password: string) => {
-    const response = await axios.post(API_URL + 'login', {
-      email,
-      password,
-    });
-    if (response.data.token) {
-      setCurrentUser({ ...response.data, isLoggedIn: true });
-    }
-    return response.data;
+    return await axios
+      .post(API_URL + 'login', {
+        email,
+        password,
+      })
+      .then((response) => {
+        if (response.data.token) {
+          setCurrentUser({ ...response.data, isLoggedIn: true });
+          return response;
+        }
+      })
+      .catch((error) => {
+        throw error.response;
+      });
   };
 
   const logout = () => {

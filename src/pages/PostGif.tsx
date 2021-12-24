@@ -5,6 +5,7 @@ import dbService from '../services/dbService';
 import { useAuth } from '../contexts/Auth/useAuth';
 import Button from '../components/Button';
 import Input from '../components/Input';
+import { useForm } from 'react-hook-form';
 
 export const PostGif = () => {
   const auth = useAuth();
@@ -12,10 +13,9 @@ export const PostGif = () => {
   const [file, setFile] = useState<File>();
   const [url, setUrl] = useState('');
   const history = useHistory();
+  const { register, handleSubmit } = useForm();
 
-  const handleSubmit = (event: FormEvent) => {
-    event.preventDefault();
-
+  const onSubmit = () => {
     // Form validation
     if (auth) {
       const token = auth.authHeader();
@@ -44,14 +44,16 @@ export const PostGif = () => {
     <>
       <Navbar />
       <div className="m-3 mt-8 flex-col flex gap-8 items-center justify-center">
-        <form onSubmit={handleSubmit} encType="multipart/form-data">
+        <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
           <div className="mb-6">
             <Input
               label="Titre du gif :"
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              required
+              required={{ value: true, message: 'Titre requis' }}
+              register={register}
+              name="title"
             />
           </div>
           <div className="mb-6">
@@ -60,6 +62,8 @@ export const PostGif = () => {
               type="url"
               value={url}
               onChange={(e) => setUrl(e.target.value)}
+              register={register}
+              name="url"
             />
           </div>
           <div className="mb-6">
@@ -70,15 +74,11 @@ export const PostGif = () => {
               id="imageFile"
               accept="image/png, image/jpeg, image/jpg, image/gif"
               onChange={handleUpload}
+              register={register}
             />
           </div>
 
-          <Button
-            type="submit"
-            primary
-            label="Poster mon gif 🎉"
-            onClick={handleSubmit}
-          />
+          <Button type="submit" primary label="Poster mon gif 🎉" />
         </form>
       </div>
     </>
