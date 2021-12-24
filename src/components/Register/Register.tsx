@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import React from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { BiLockAlt } from 'react-icons/bi';
 import { BsFillPersonFill } from 'react-icons/bs';
 import { MdAlternateEmail } from 'react-icons/md';
@@ -9,24 +9,40 @@ import Button from '../Button';
 import Input from '../Input';
 import Navbar from '../Navbar/Navbar';
 
+interface IRegisterInput {
+  lastName: string;
+  firstName: string;
+  email: string;
+  password: string;
+}
+
 const Register = () => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const history = useHistory();
   const auth = useAuth();
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+  } = useForm<IRegisterInput>();
 
-  const onSubmit = () => {
-    // validation du formulaire
+  const onSubmit: SubmitHandler<IRegisterInput> = (data) => {
     if (auth) {
+      console.log(data);
       auth
-        .register(lastName, firstName, email, password)
-        .then(() => {
-          history.push('/home');
+        .register(data.lastName, data.firstName, data.email, data.password)
+        .then((response) => {
+          if (response.status == '200') {
+            history.push('/login');
+          }
         })
-        .catch((error: Error) => console.log(error));
+        .catch((error: any) => {
+          if (error.data.error.name === 'SequelizeUniqueConstraintError') {
+            setError('email', {
+              message: 'Un utilisateur est déjà inscrit avec ce mail !',
+            });
+          }
+        });
     }
   };
 
@@ -43,12 +59,12 @@ const Register = () => {
               placeholder="John"
               label="Ton prénom :"
               type="text"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
               leftIcon={<BsFillPersonFill />}
               required={{ value: true, message: 'Prénom requis' }}
+              minLength={{ value: 2, message: 'Au moins 2 caractères requuis' }}
               register={register}
-              name="surname"
+              name="firstName"
+              error={errors.firstName}
             />
           </div>
 
@@ -57,12 +73,12 @@ const Register = () => {
               label="Ton nom de famille :"
               placeholder="Doe"
               type="text"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
+              minLength={{ value: 2, message: 'Au moins 2 caractères requuis' }}
               leftIcon={<BsFillPersonFill />}
               required={{ value: true, message: 'Nom requis' }}
               register={register}
-              name="name"
+              name="lastName"
+              error={errors.lastName}
             />
           </div>
 
@@ -71,12 +87,16 @@ const Register = () => {
               label="Ton email :"
               placeholder="mon_email@email.com"
               type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
               leftIcon={<MdAlternateEmail />}
+              pattern={{
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: "L'email n'a pas le bon format",
+              }}
               required={{ value: true, message: 'Email requis' }}
+              minLength={{ value: 4, message: 'Au moins 4 caractères' }}
               register={register}
               name="email"
+              error={errors.email}
             />
           </div>
 
@@ -85,12 +105,27 @@ const Register = () => {
               placeholder="******"
               label="Ton mot de passe :"
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
               leftIcon={<BiLockAlt />}
               required={{ value: true, message: 'Mot de passe requis' }}
+              pattern={{
+                value:
+                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
+                message:
+                  'Au moins 1 minuscule, 1 majuscule, 1 chiffre et 1 caractère spécial',
+              }}
+              minLength={{
+                value: 8,
+                message:
+                  'Le mot de passe doit être compris entre 8 et 20 caractères',
+              }}
+              maxLength={{
+                value: 20,
+                message:
+                  'Le mot de passe doit être compris entre 8 et 20 caractères',
+              }}
               register={register}
               name="password"
+              error={errors.password}
             />
           </div>
 

@@ -16,7 +16,7 @@ interface IAuthContext {
     firstName: string,
     email: string,
     password: string,
-  ) => Promise<AxiosResponse<any, any>>;
+  ) => Promise<any>;
   authHeader: () => {
     Authorization: string;
   };
@@ -62,18 +62,23 @@ export const AuthProvider = ({
     });
   };
 
-  const register = (
+  const register = async (
     lastName: string,
     firstName: string,
     email: string,
     password: string,
   ) => {
-    return axios.post(API_URL + 'signup', {
-      lastName,
-      firstName,
-      email,
-      password,
-    });
+    return await axios
+      .post(API_URL + 'signup', {
+        lastName,
+        firstName,
+        email,
+        password,
+      })
+      .then((response) => response)
+      .catch((error) => {
+        throw error.response;
+      });
   };
 
   const authHeader = () => {

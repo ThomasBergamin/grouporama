@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Redirect, useHistory } from 'react-router-dom';
+import React from 'react';
+import { Redirect } from 'react-router-dom';
 import { useAuth } from '../../contexts/Auth/useAuth';
 import Button from '../Button';
 import Input from '../Input';
@@ -8,22 +8,24 @@ import { MdAlternateEmail } from 'react-icons/md';
 import { BiLockAlt } from 'react-icons/bi';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-interface IFormInput {
+interface ILoginInput {
   email: string;
   password: string;
 }
 
 const Login = () => {
-  const history = useHistory();
   const auth = useAuth();
   const {
     register,
     handleSubmit,
     formState: { errors },
     setError,
-  } = useForm<IFormInput>();
+    formState,
+  } = useForm<ILoginInput>();
 
-  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+  const { isDirty } = formState;
+
+  const onSubmit: SubmitHandler<ILoginInput> = async (data) => {
     if (auth) {
       auth
         .login(data.email, data.password)
@@ -33,13 +35,10 @@ const Login = () => {
           }
         })
         .catch((error) => {
-          console.log(error);
           if (error.data.error === 'Mot de passe incorrect !') {
-            console.log(error.data);
             setError('password', { message: 'Mot de passe incorrect !' });
           }
           if (error.data.error === 'Utilisateur non trouvé !') {
-            console.log(error.data);
             setError('email', {
               message: 'Utilisateur non trouvé avec cet email !',
             });
@@ -61,7 +60,8 @@ const Login = () => {
         >
           <div className="mb-6">
             <Input
-              label="Email :"
+              type="email"
+              label="Ton email :"
               placeholder="mon_email@email.com"
               leftIcon={<MdAlternateEmail />}
               required={{ value: true, message: 'Email requis' }}
@@ -77,7 +77,7 @@ const Login = () => {
           </div>
           <div className="mb-6">
             <Input
-              label="Mot de passe :"
+              label="Ton mot de passe :"
               name="password"
               placeholder="*******"
               type="password"
@@ -89,7 +89,12 @@ const Login = () => {
             />
           </div>
           <div className="flex items-center justify-between">
-            <Button type="submit" primary label="Se connecter" />
+            <Button
+              disabled={!isDirty}
+              type="submit"
+              primary
+              label="Se connecter"
+            />
             <a
               className="inline-block align-baseline font-bold text-sm text-primary hover:text-primaryDark"
               href="#"
