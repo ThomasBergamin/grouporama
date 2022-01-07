@@ -29,11 +29,15 @@ export const AuthProvider = ({
 }: {
   children: ReactNode;
 }): JSX.Element => {
-  const [currentUser, setCurrentUser] = useState<IAuth>({
-    isLoggedIn: false,
-    token: '',
-    userId: '',
-  });
+  const [currentUser, setCurrentUser] = useState<IAuth>(
+    localStorage.getItem('authTokens')
+      ? JSON.parse(localStorage.getItem('authTokens') || '')
+      : {
+          isLoggedIn: false,
+          token: '',
+          userId: '',
+        },
+  );
 
   const API_URL = 'http://localhost:3001/api/auth/';
 
@@ -46,6 +50,13 @@ export const AuthProvider = ({
       .then((response) => {
         if (response.data.token) {
           setCurrentUser({ ...response.data, isLoggedIn: true });
+          localStorage.setItem(
+            'authTokens',
+            JSON.stringify({
+              ...response.data,
+              isLoggedIn: true,
+            }),
+          );
           return response;
         }
       })
@@ -55,6 +66,7 @@ export const AuthProvider = ({
   };
 
   const logout = () => {
+    localStorage.removeItem('authTokens');
     setCurrentUser({
       isLoggedIn: false,
       token: '',
