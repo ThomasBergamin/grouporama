@@ -18,12 +18,9 @@ const Login = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty },
     setError,
-    formState,
   } = useForm<ILoginInput>();
-
-  const { isDirty } = formState;
 
   const onSubmit: SubmitHandler<ILoginInput> = async (data) => {
     if (auth) {

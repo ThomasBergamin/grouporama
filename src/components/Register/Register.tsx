@@ -22,7 +22,7 @@ const Register = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty },
     setError,
   } = useForm<IRegisterInput>();
 
@@ -129,7 +129,12 @@ const Register = () => {
             />
           </div>
 
-          <Button type="submit" primary label="Submit" />
+          <Button
+            disabled={!isDirty}
+            type="submit"
+            primary
+            label="S'inscrire"
+          />
         </form>
       </div>
     </>

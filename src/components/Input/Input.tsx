@@ -37,7 +37,7 @@ const Input: FC<IInput> = ({
   error,
 }) => {
   const [className, setClassName] = useState(
-    'shadow border-transparent appearance-none border-2 rounded w-full py-2 px-9 placeholder-darkGray leading-tight focus:outline-none focus:shadow-outline',
+    'shadow border-transparent appearance-none border-2 rounded w-full py-2 px-2 placeholder-darkGray leading-tight focus:outline-none focus:shadow-outline',
   );
 
   useEffect(() => {
@@ -47,6 +47,12 @@ const Input: FC<IInput> = ({
       setClassName(className.replace('border-red-500', 'border-transparent'));
     }
   }, [error]);
+
+  useEffect(() => {
+    if (leftIcon) {
+      setClassName(className.replace('px-2', 'px-9'));
+    }
+  }, [leftIcon]);
 
   return (
     <>
