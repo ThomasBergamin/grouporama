@@ -5,6 +5,7 @@ import Loader from '../Loader';
 import GifCard from './GifCard.component';
 import { getDate, getMonth } from 'date-fns';
 import { useAuth } from '../../contexts/Auth/useAuth';
+import { CommentsList } from '../Comments/CommentsList';
 
 interface IGifCardContainer {
   gif: IGif;
@@ -29,17 +30,26 @@ const GifCardContainer = ({ gif }: IGifCardContainer) => {
     }
   }, [gif]);
 
+  console.log(gif);
+
   return !loading ? (
-    <GifCard
-      title={gif.title}
-      id={gif.id}
-      authorName={gifAuthor?.firstName}
-      key={gif.id}
-      imageUrl={gif.url}
-      date={gifDays}
-      hours={gifHour}
-      isCurrentUserAuthor={isCurrentUserAuthor}
-    />
+    <div className="flex mx-6 flex-col items-start">
+      <GifCard
+        title={gif.title}
+        id={gif.id}
+        authorName={gifAuthor?.firstName}
+        key={gif.id}
+        imageUrl={gif.url}
+        date={gifDays}
+        hours={gifHour}
+        isCurrentUserAuthor={isCurrentUserAuthor}
+      />
+      <div className="mt-4 mx-6 mb-16">
+        {gif.comments && (
+          <CommentsList gifId={gif.id} comments={gif.comments} />
+        )}
+      </div>
+    </div>
   ) : (
     <Loader />
   );

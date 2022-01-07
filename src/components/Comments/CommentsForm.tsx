@@ -1,10 +1,36 @@
 import React from 'react';
+import dbService from '../../services/dbService';
 import Button from '../Button';
+import { useAuth } from '../../contexts/Auth/useAuth';
 
-const CommentsForm = () => {
+interface ICommentsForm {
+  gifId: string;
+}
+
+const CommentsForm = ({ gifId }: ICommentsForm) => {
+  const auth = useAuth();
+  const handleSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    const target = e.target as typeof e.target & {
+      body: { value: string };
+    };
+    const content = target.body.value;
+    console.log(content, gifId);
+    if (auth && auth.currentUser && auth.currentUser.token) {
+      dbService.postComment(
+        auth.currentUser.userId,
+        content,
+        gifId,
+        auth.authHeader(),
+      );
+    }
+  };
   return (
     <div className="flex items-center justify-center border border-gray rounded-lg shadow-md mt-56 mb-4 max-w-lg">
-      <form className="w-full max-w-xl bg-lightGray rounded-lg px-4 pt-2">
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-xl bg-lightGray rounded-lg px-4 pt-2"
+      >
         <div className="flex flex-wrap -mx-3 mb-6">
           <h2 className="px-4 pt-3 pb-2 text-lg">
             Ajouter un nouveau commentaire

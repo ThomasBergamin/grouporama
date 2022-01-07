@@ -107,6 +107,21 @@ class dbService {
   ) {
     return axios.get(API_URL + `users/${userId}`, { headers: token, signal });
   }
+
+  async postComment(
+    userId: string,
+    content: string,
+    gifId: string,
+    token: {
+      Authorization: string;
+    },
+  ) {
+    return axios.post(
+      API_URL + `comments/`,
+      { userId, content, gifId },
+      { headers: token },
+    );
+  }
 }
 
 export default new dbService();
