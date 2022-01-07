@@ -4,12 +4,7 @@ import logo from '../../img/logos/icon-left-font-monochrome-black.svg';
 import Button from '../Button';
 import { useAuth } from '../../contexts/Auth/useAuth';
 
-const Navbar = ({
-  searchInput,
-}: {
-  searchInput?: boolean;
-  authenticationBtn?: boolean;
-}) => {
+const Navbar = () => {
   const auth = useAuth();
   const history = useHistory();
   const handleLogout = () => {
@@ -33,11 +28,6 @@ const Navbar = ({
             className="cursor-pointer max-h-10 mx-2"
           />
 
-          {searchInput && (
-            <div className="mx-auto my-auto">
-              {/*  <Input placeholder="Rechercher un gif :" /> */}
-            </div>
-          )}
           {auth && auth.currentUser.isLoggedIn ? (
             <div className="ml-auto flex">
               <Button onClick={handleLogout} secondary label="Se déconnecter" />

@@ -5,6 +5,7 @@ import CardList from '../components/CardList';
 import Button from '../components/Button';
 import { useHistory } from 'react-router';
 import Loader from '../components/Loader';
+import { Footer } from '../components/Footer/Footer';
 
 export const Home = () => {
   const { gifs, loading } = useGifs();
@@ -16,9 +17,10 @@ export const Home = () => {
       <div className="fixed bottom-12 right-12">
         <Button label="Poster un gif" primary onClick={handlePost} />
       </div>
-      <div className="m-3 mt-8 flex-col flex gap-8 items-center justify-center">
+      <div className="m-3 mt-8 mb-16 flex-col flex gap-8 items-center justify-center">
         {!loading ? gifs && <CardList gifs={gifs} /> : <Loader />}
       </div>
+      <Footer />
     </>
   );
 };
