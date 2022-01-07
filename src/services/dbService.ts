@@ -122,6 +122,15 @@ class dbService {
       { headers: token },
     );
   }
+
+  async deleteComment(
+    commentId: string,
+    token: {
+      Authorization: string;
+    },
+  ) {
+    return axios.delete(API_URL + `comments/${commentId}`, { headers: token });
+  }
 }
 
 export default new dbService();

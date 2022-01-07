@@ -12,8 +12,8 @@ export const GifDetail = () => {
   return (
     <>
       <Navbar />
-      <div className="flex items-center justify-center mt-12 ">
-        {!loading ? gif && <Card gif={gif} /> : <Loader />}
+      <div className="flex items-center justify-center mt-8 ">
+        {!loading ? gif && <Card withComments gif={gif} /> : <Loader />}
       </div>
       <Footer />
     </>

@@ -9,8 +9,6 @@ interface ICommentsList {
 }
 
 const CommentsList = ({ gifId, comments }: ICommentsList) => {
-  console.log(comments);
-
   return (
     <div className="antialiased mx-auto max-w-screen-sm">
       <h3 className="mb-4 text-lg font-semibold">Commentaires</h3>
@@ -18,8 +16,8 @@ const CommentsList = ({ gifId, comments }: ICommentsList) => {
         {comments.map((comment) => {
           return <CommentsCard key={comment.id} comment={comment} />;
         })}
-        <CommentsForm gifId={gifId} />
       </div>
+      <CommentsForm gifId={gifId} />
     </div>
   );
 };

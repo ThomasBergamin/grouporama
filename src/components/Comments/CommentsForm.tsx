@@ -15,18 +15,22 @@ const CommentsForm = ({ gifId }: ICommentsForm) => {
       body: { value: string };
     };
     const content = target.body.value;
-    console.log(content, gifId);
     if (auth && auth.currentUser && auth.currentUser.token) {
-      dbService.postComment(
-        auth.currentUser.userId,
-        content,
-        gifId,
-        auth.authHeader(),
-      );
+      try {
+        dbService.postComment(
+          auth.currentUser.userId,
+          content,
+          gifId,
+          auth.authHeader(),
+        );
+        window.location.reload();
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
   return (
-    <div className="flex items-center justify-center border border-gray rounded-lg shadow-md mt-56 mb-4 max-w-lg">
+    <div className="flex items-center justify-center border border-gray rounded-lg mt-4 shadow-md mb-4 max-w-lg">
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-xl bg-lightGray rounded-lg px-4 pt-2"

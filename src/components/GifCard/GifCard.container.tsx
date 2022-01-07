@@ -9,9 +9,10 @@ import { CommentsList } from '../Comments/CommentsList';
 
 interface IGifCardContainer {
   gif: IGif;
+  withComments?: boolean;
 }
 
-const GifCardContainer = ({ gif }: IGifCardContainer) => {
+const GifCardContainer = ({ gif, withComments = false }: IGifCardContainer) => {
   const auth = useAuth();
   const { gifAuthor, loading } = useGifAuthor(gif.userId);
   const [isCurrentUserAuthor, setIsCurrentUserAuthor] = useState(false);
@@ -30,10 +31,8 @@ const GifCardContainer = ({ gif }: IGifCardContainer) => {
     }
   }, [gif]);
 
-  console.log(gif);
-
   return !loading ? (
-    <div className="flex mx-6 flex-col items-start">
+    <div className="maw-w-128 flex mx-6 flex-col items-start">
       <GifCard
         title={gif.title}
         id={gif.id}
@@ -44,11 +43,12 @@ const GifCardContainer = ({ gif }: IGifCardContainer) => {
         hours={gifHour}
         isCurrentUserAuthor={isCurrentUserAuthor}
       />
-      <div className="mt-4 mx-6 mb-16">
-        {gif.comments && (
-          <CommentsList gifId={gif.id} comments={gif.comments} />
-        )}
-      </div>
+
+      {gif.comments && withComments && (
+        <div className="mt-4 mx-6 mb-16">
+          <CommentsList gifId={gif.id} comments={gif.comments} />{' '}
+        </div>
+      )}
     </div>
   ) : (
     <Loader />
