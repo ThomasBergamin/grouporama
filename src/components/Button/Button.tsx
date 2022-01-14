@@ -29,7 +29,7 @@ const Button: ({
   type,
 }: IButton) => {
   const baseClass =
-    'transition-colors shadow-lg text-white py-2 px-4 rounded-full disabled:opacity-50';
+    'transition-colors shadow-2xl text-white py-2 px-4 rounded-full disabled:opacity-50';
   return (
     <button
       disabled={disabled}

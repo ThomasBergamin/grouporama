@@ -19,7 +19,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-pink sticky z-50 top-0 shadow-md">
+    <nav className="bg-pink sticky z-50 top-0 shadow-md pl-3 sm:pl-0">
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
         <div className="flex md:items-center items-start gap-y-4 container py-2 flex-col md:flex-row">
           <img

@@ -10,8 +10,8 @@ interface ICommentsList {
 
 const CommentsList = ({ gifId, comments }: ICommentsList) => {
   return (
-    <div className="antialiased mx-auto max-w-screen-sm">
-      <h3 className="mb-4 text-lg font-semibold">Commentaires</h3>
+    <div className="antialiased mx-auto max-w-screen-sm mt-4">
+      <h3 className="mb-4 text-xl font-semibold">Commentaires</h3>
       <div className="space-y-4">
         {comments.map((comment) => {
           return <CommentsCard key={comment.id} comment={comment} />;

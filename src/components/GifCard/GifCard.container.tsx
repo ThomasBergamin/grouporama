@@ -32,8 +32,9 @@ const GifCardContainer = ({ gif, withComments = false }: IGifCardContainer) => {
   }, [gif]);
 
   return !loading ? (
-    <div className="maw-w-128 flex mx-6 flex-col items-start">
+    <div className="maw-w-128 flex mx-6 flex-col items-center">
       <GifCard
+        withComments={withComments}
         title={gif.title}
         id={gif.id}
         authorName={gifAuthor?.firstName}
@@ -45,7 +46,7 @@ const GifCardContainer = ({ gif, withComments = false }: IGifCardContainer) => {
       />
 
       {gif.comments && withComments && (
-        <div className="mt-4 mx-6 mb-16">
+        <div className="mt-4 mb-16">
           <CommentsList gifId={gif.id} comments={gif.comments} />
         </div>
       )}
