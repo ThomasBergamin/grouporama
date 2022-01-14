@@ -50,11 +50,14 @@ const Login = () => {
     <>
       <Navbar />
 
-      <div className="flex items-center justify-center mt-3 ">
+      <div className="container mx-auto h-screen flex align-middle justify-center items-center">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-4/12"
+          className="bg-white border-gray border shadow-md rounded px-8 pt-6 pb-8 mb-4 w-1/3"
         >
+          <h2 className="mb-8 text-3xl font-semibold text-primary">
+            Bienvenue sur Groupomania
+          </h2>
           <div className="mb-6">
             <Input
               type="email"
@@ -92,12 +95,6 @@ const Login = () => {
               primary
               label="Se connecter"
             />
-            <a
-              className="inline-block align-baseline font-bold text-sm text-primary hover:text-primaryDark"
-              href="#"
-            >
-              Mot de passe oublié ?
-            </a>
           </div>
         </form>
       </div>

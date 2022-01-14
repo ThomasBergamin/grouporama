@@ -46,7 +46,7 @@ const GifCardContainer = ({ gif, withComments = false }: IGifCardContainer) => {
 
       {gif.comments && withComments && (
         <div className="mt-4 mx-6 mb-16">
-          <CommentsList gifId={gif.id} comments={gif.comments} />{' '}
+          <CommentsList gifId={gif.id} comments={gif.comments} />
         </div>
       )}
     </div>

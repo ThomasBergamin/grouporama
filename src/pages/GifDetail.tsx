@@ -4,7 +4,6 @@ import Card from '../components/GifCard';
 import { useGif } from '../hooks/useGif';
 import { useParams } from 'react-router-dom';
 import Loader from '../components/Loader';
-import { Footer } from '../components/Footer/Footer';
 
 export const GifDetail = () => {
   const { id } = useParams<Record<string, string>>();
@@ -15,7 +14,6 @@ export const GifDetail = () => {
       <div className="flex items-center justify-center mt-8 ">
         {!loading ? gif && <Card withComments gif={gif} /> : <Loader />}
       </div>
-      <Footer />
     </>
   );
 };

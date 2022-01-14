@@ -32,7 +32,7 @@ const GifCard = ({
     history.push(`gifs/edit/${id}`);
   };
   return (
-    <div className="bg-white border border-gray p-4 border-0 border-transparent rounded-2xl shadow-lg">
+    <div className="bg-white border border-gray p-4 border-transparent rounded-2xl shadow-lg">
       <div className="flex items-baseline justify-between">
         <h2
           onClick={goToDetail}
@@ -48,10 +48,10 @@ const GifCard = ({
           />
         )}
       </div>
-      <div className="flex justify-center ">
+      <div className="">
         <img
           onClick={goToDetail}
-          className="h-96 w-96 object-contain rounded-md cursor-pointer"
+          className="w-96 bg-cover object-contain rounded-md cursor-pointer"
           src={imageUrl}
           alt={`Gif posté par ${authorName}`}
         />

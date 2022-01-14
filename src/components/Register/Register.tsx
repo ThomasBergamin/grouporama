@@ -49,11 +49,14 @@ const Register = () => {
   return (
     <>
       <Navbar />
-      <div className="flex items-center justify-center mt-3 ">
+      <div className="flex h-screen items-center justify-center mt-3 ">
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-4/12"
         >
+          <h2 className="mb-8 text-3xl font-semibold text-primary">
+            Crée ton compte Groupomania
+          </h2>
           <div className="mb-6">
             <Input
               placeholder="John"
