@@ -21,7 +21,7 @@ const Navbar = () => {
   return (
     <nav className="bg-pink sticky z-50 top-0 shadow-md">
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
-        <div className="flex items-center container py-2">
+        <div className="flex md:items-center items-start gap-y-4 container py-2 flex-col md:flex-row">
           <img
             onClick={backHome}
             src={logo}
@@ -29,11 +29,11 @@ const Navbar = () => {
           />
 
           {auth && auth.currentUser.isLoggedIn ? (
-            <div className="ml-auto flex">
+            <div className="md:ml-auto mb-3 flex">
               <Button onClick={handleLogout} secondary label="Se déconnecter" />
             </div>
           ) : (
-            <div className="ml-auto flex">
+            <div className="md:ml-auto flex flex-col gap-y-3 md:gap-y-0 md:flex-row mb-3">
               <div className="mx-2">
                 <Link to="/login">
                   <Button primary label="Se connecter" />

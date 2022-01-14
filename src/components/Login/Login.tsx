@@ -50,10 +50,10 @@ const Login = () => {
     <>
       <Navbar />
 
-      <div className="container mx-auto h-screen flex align-middle justify-center items-center">
+      <div className="container md:mx-auto w-full -mt-32 md:-mt-16 h-screen flex align-middle justify-center items-center">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="bg-white border-gray border shadow-md rounded px-8 pt-6 pb-8 mb-4 w-1/3"
+          className="bg-white border-gray border mx-3 shadow-md rounded px-8 pt-6 pb-8 mb-4"
         >
           <h2 className="mb-8 text-3xl font-semibold text-primary">
             Bienvenue sur Groupomania
@@ -62,7 +62,7 @@ const Login = () => {
             <Input
               type="email"
               label="Ton email :"
-              placeholder="mon_email@email.com"
+              placeholder="xxx@email.com"
               leftIcon={<MdAlternateEmail />}
               required={{ value: true, message: 'Email requis' }}
               register={register}
