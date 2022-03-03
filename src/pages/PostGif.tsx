@@ -44,7 +44,15 @@ export const PostGif = () => {
     <>
       <Navbar />
       <div className="m-3 mt-8 flex-col flex gap-8 items-center justify-center">
-        <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
+        <form
+          className="bg-white border-gray border mx-3 shadow-md rounded px-8 pt-6 pb-8 mb-4"
+          onSubmit={handleSubmit(onSubmit)}
+          encType="multipart/form-data"
+        >
+          <h2 className="mb-8 text-3xl font-semibold text-primary">
+            Poster un gif
+            <span className="italic font-bold text-secondary">{title}</span>
+          </h2>
           <div className="mb-6">
             <Input
               label="Titre du gif :"

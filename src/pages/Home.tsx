@@ -13,7 +13,7 @@ export const Home = () => {
   return (
     <>
       <Navbar />
-      <div className="fixed bottom-12 right-12">
+      <div className="mx-auto mt-8 flex items-center justify-center md:fixed md:bottom-12 md:right-12">
         <Button label="Poster un gif" primary onClick={handlePost} />
       </div>
       <div className="m-3 mt-8 mb-16 flex-col flex gap-8 items-center justify-center">

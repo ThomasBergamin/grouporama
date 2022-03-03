@@ -29,11 +29,11 @@ const Navbar = () => {
           />
 
           {auth && auth.currentUser.isLoggedIn ? (
-            <div className="md:ml-auto mb-3 flex">
+            <div className="md:ml-auto flex">
               <Button onClick={handleLogout} secondary label="Se déconnecter" />
             </div>
           ) : (
-            <div className="md:ml-auto flex flex-col gap-y-3 md:gap-y-0 md:flex-row mb-3">
+            <div className="md:ml-auto flex flex-col gap-y-3 md:gap-y-0 md:flex-row ">
               <div className="mx-2">
                 <Link to="/login">
                   <Button primary label="Se connecter" />
