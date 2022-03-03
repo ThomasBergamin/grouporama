@@ -51,7 +51,6 @@ export const PostGif = () => {
         >
           <h2 className="mb-8 text-3xl font-semibold text-primary">
             Poster un gif
-            <span className="italic font-bold text-secondary">{title}</span>
           </h2>
           <div className="mb-6">
             <Input

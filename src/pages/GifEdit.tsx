@@ -14,9 +14,15 @@ export const GifEdit = () => {
   const { gif } = useGif(id);
   const [title, setTitle] = useState('');
   const [file, setFile] = useState<File>();
-  const [url, setUrl] = useState('');
+  const [url, setUrl] = useState<string>();
   const history = useHistory();
   const { register, handleSubmit } = useForm();
+
+  useEffect(() => {
+    if (gif && !gif.isAFile) {
+      setUrl(gif.url);
+    }
+  });
 
   useEffect(() => {
     if (gif && auth) {
