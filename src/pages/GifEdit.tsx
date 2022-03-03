@@ -7,16 +7,24 @@ import { useAuth } from '../contexts/Auth/useAuth';
 import dbService from '../services/dbService';
 import { useGif } from '../hooks/useGif';
 import { useForm } from 'react-hook-form';
+import Alert from '../components/Alert';
+
+interface IForm {
+  image: FileList;
+  url: string;
+  title: string;
+}
 
 export const GifEdit = () => {
   const auth = useAuth();
   const { id } = useParams<Record<string, string>>();
   const { gif } = useGif(id);
   const [title, setTitle] = useState('');
+  const [errorText, setErrorText] = useState('');
   const [file, setFile] = useState<File>();
   const [url, setUrl] = useState<string>();
   const history = useHistory();
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm<IForm>();
 
   useEffect(() => {
     if (gif && !gif.isAFile) {
@@ -38,9 +46,10 @@ export const GifEdit = () => {
     }
   }, [gif]);
 
-  const onSubmit = () => {
-    // Form validation
-    if (auth) {
+  const onSubmit = (data: { image: FileList; url: string; title: string }) => {
+    if (data.image.length > 0 && data.url) {
+      setErrorText('Vous ne pouvez pas envoyer un fichier et une url !');
+    } else if (auth) {
       const token = auth.authHeader();
       if (title) {
         if (file) {
@@ -56,7 +65,6 @@ export const GifEdit = () => {
             .then(() => history.push('/home'))
             .catch((error) => console.log(error));
         } else {
-          console.log('no file');
           dbService
             .updateGif(auth.currentUser.userId, id, title, token, url)
             .then(() => history.push('/home'))
@@ -73,8 +81,6 @@ export const GifEdit = () => {
           .deleteGif(gif.id, auth.authHeader())
           .then(() => history.push('/home'))
           .catch((error) => console.log(error));
-      } else {
-        console.log('Current user ID and gif user ID does not match');
       }
     }
   };
@@ -89,6 +95,11 @@ export const GifEdit = () => {
   return (
     <>
       <Navbar />
+      {errorText && (
+        <div className="py-4 flex items-center justify-center -mb-32">
+          <Alert text={errorText} onClose={() => setErrorText('')} />
+        </div>
+      )}
       <div className="container md:mx-auto w-full -mt-32 md:-mt-16 h-screen flex align-middle justify-center items-center">
         <form
           className="bg-white border-gray border mx-3 shadow-md rounded px-8 pt-6 pb-8 mb-4"

@@ -28,7 +28,6 @@ const Register = () => {
 
   const onSubmit: SubmitHandler<IRegisterInput> = (data) => {
     if (auth) {
-      console.log(data);
       auth
         .register(data.lastName, data.firstName, data.email, data.password)
         .then((response) => {

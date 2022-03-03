@@ -1,23 +1,32 @@
 import Navbar from '../components/Navbar';
-import React, { FormEvent, useState } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import dbService from '../services/dbService';
 import { useAuth } from '../contexts/Auth/useAuth';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import { useForm } from 'react-hook-form';
+import Alert from '../components/Alert';
+
+interface IForm {
+  image: FileList;
+  url: string;
+  title: string;
+}
 
 export const PostGif = () => {
   const auth = useAuth();
   const [title, setTitle] = useState('');
   const [file, setFile] = useState<File>();
   const [url, setUrl] = useState('');
+  const [errorText, setErrorText] = useState('');
   const history = useHistory();
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm<IForm>();
 
-  const onSubmit = () => {
-    // Form validation
-    if (auth) {
+  const onSubmit = (data: { image: FileList; url: string; title: string }) => {
+    if (data.image.length > 0 && data.url) {
+      setErrorText('Vous ne pouvez pas envoyer un fichier et une url !');
+    } else if (auth) {
       const token = auth.authHeader();
       if (file) {
         dbService
@@ -30,6 +39,8 @@ export const PostGif = () => {
           .then(() => history.push('/home'))
           .catch((error) => console.log(error));
       }
+    } else {
+      setErrorText('Il faut être connecté pour poster un gif !');
     }
   };
 
@@ -43,7 +54,12 @@ export const PostGif = () => {
   return (
     <>
       <Navbar />
-      <div className="m-3 mt-8 flex-col flex gap-8 items-center justify-center">
+      {errorText && (
+        <div className="py-4 flex items-center justify-center -mb-32">
+          <Alert text={errorText} onClose={() => setErrorText('')} />
+        </div>
+      )}
+      <div className="container md:mx-auto w-full -mt-32 md:-mt-16 h-screen flex align-middle justify-center items-center">
         <form
           className="bg-white border-gray border mx-3 shadow-md rounded px-8 pt-6 pb-8 mb-4"
           onSubmit={handleSubmit(onSubmit)}
