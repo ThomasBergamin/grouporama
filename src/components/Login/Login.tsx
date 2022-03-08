@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useAuth } from '../../contexts/Auth/useAuth';
 import Button from '../Button';
@@ -7,6 +7,7 @@ import Navbar from '../Navbar/Navbar';
 import { MdAlternateEmail } from 'react-icons/md';
 import { BiLockAlt } from 'react-icons/bi';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { error } from 'console';
 
 interface ILoginInput {
   email: string;
@@ -21,6 +22,17 @@ const Login = () => {
     formState: { errors, isDirty },
     setError,
   } = useForm<ILoginInput>();
+  const [className, setClassName] = useState(
+    'shadow border-transparent appearance-none border-2 rounded w-full py-2 px-9 placeholder-darkGray leading-tight focus:outline-none focus:shadow-outline',
+  );
+
+  useEffect(() => {
+    if (errors.password) {
+      setClassName(className.replace('border-transparent', 'border-red-500 '));
+    } else {
+      setClassName(className.replace('border-red-500', 'border-transparent'));
+    }
+  }, [errors.password]);
 
   const onSubmit: SubmitHandler<ILoginInput> = async (data) => {
     if (auth) {
@@ -77,17 +89,30 @@ const Login = () => {
             />
           </div>
           <div className="mb-6">
-            <Input
-              label="Ton mot de passe :"
-              name="password"
-              placeholder="*******"
-              type="password"
-              minLength={{ value: 4, message: 'Au moins 4 caractères' }}
-              leftIcon={<BiLockAlt />}
-              required={{ value: true, message: 'Mot de passe requis' }}
-              register={register}
-              error={errors.password}
-            />
+            <>
+              <label className="block text-primary text-sm font-bold mb-2">
+                Ton mot de passe :
+              </label>
+              <div className="relative">
+                <div className="absolute top-3 left-3">{<BiLockAlt />}</div>
+
+                <input
+                  {...register('password', {
+                    required: { value: true, message: 'Mot de passe requis' },
+                    minLength: { value: 4, message: 'Au moins 4 caractères' },
+                  })}
+                  name="password"
+                  placeholder="*******"
+                  type="password"
+                  className={className}
+                />
+                {errors.password && (
+                  <span className="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                    {errors.password.message}
+                  </span>
+                )}
+              </div>
+            </>
           </div>
           <div className="flex items-center justify-between">
             <Button
