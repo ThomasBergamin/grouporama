@@ -15,7 +15,7 @@ Il faut également lancer le back end disponible à cette adresse : https://gith
 
 ## ⚙️ Installation
 
-Afin d'installer toutes les dependences du projet, lancer la commande suivante :
+Afin d'installer toutes les dépendances du projet, lancer la commande suivante :
 
 ```bash
 yarn install
