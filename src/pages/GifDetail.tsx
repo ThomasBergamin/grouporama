@@ -11,7 +11,10 @@ export const GifDetail = () => {
   return (
     <>
       <Navbar />
-      <div className="flex items-center justify-center mt-8 ">
+      <div
+        style={{ marginTop: '44px' }}
+        className="flex items-center justify-center mt-8 "
+      >
         {!loading ? gif && <Card withComments gif={gif} /> : <Loader />}
       </div>
     </>

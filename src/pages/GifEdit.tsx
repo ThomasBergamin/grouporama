@@ -100,7 +100,10 @@ export const GifEdit = () => {
           <Alert text={errorText} onClose={() => setErrorText('')} />
         </div>
       )}
-      <div className="container md:mx-auto w-full -mt-32 md:-mt-16 h-screen flex align-middle justify-center items-center">
+      <div
+        style={{ marginTop: '44px' }}
+        className="container md:mx-auto w-full -mt-32 sm:-mt-4 h-screen flex align-middle justify-center items-center"
+      >
         <form
           className="bg-white border-gray border mx-3 shadow-md rounded px-8 pt-6 pb-8 mb-4"
           onSubmit={handleSubmit(onSubmit)}

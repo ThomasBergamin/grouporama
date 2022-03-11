@@ -7,7 +7,6 @@ import Navbar from '../Navbar/Navbar';
 import { MdAlternateEmail } from 'react-icons/md';
 import { BiLockAlt } from 'react-icons/bi';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { error } from 'console';
 
 interface ILoginInput {
   email: string;
@@ -62,7 +61,10 @@ const Login = () => {
     <>
       <Navbar />
 
-      <div className="container md:mx-auto w-full -mt-32 md:-mt-16 h-screen flex align-middle justify-center items-center">
+      <div
+        style={{ marginTop: '64pxS' }}
+        className="container md:mx-auto w-full md:-mt-4 h-screen flex align-middle justify-center items-center"
+      >
         <form
           autoComplete="off"
           onSubmit={handleSubmit(onSubmit)}

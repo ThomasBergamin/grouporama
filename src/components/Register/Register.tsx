@@ -48,7 +48,10 @@ const Register = () => {
   return (
     <>
       <Navbar />
-      <div className="container md:mx-auto w-full -mt-16 h-screen flex align-middle justify-center items-center">
+      <div
+        style={{ marginTop: '64px' }}
+        className="container md:mx-auto w-full -mt-8 h-screen flex align-middle justify-center items-center"
+      >
         <form
           autoComplete="off"
           onSubmit={handleSubmit(onSubmit)}
