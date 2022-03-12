@@ -8,9 +8,10 @@ import dbService from '../../services/dbService';
 
 interface ICommentsCard {
   comment: IComment;
+  isSuperAdmin: boolean;
 }
 
-const CommentsCard = ({ comment }: ICommentsCard) => {
+const CommentsCard = ({ comment, isSuperAdmin }: ICommentsCard) => {
   const auth = useAuth();
   const { gifAuthor } = useGifAuthor(comment.userId);
   const commentDate = new Date(comment.createdAt);
@@ -30,6 +31,10 @@ const CommentsCard = ({ comment }: ICommentsCard) => {
         console.log(error);
       }
   };
+
+  const displayDelete =
+    isSuperAdmin || comment.userId === auth?.currentUser.userId;
+
   return (
     <>
       <div className="flex">
@@ -38,7 +43,7 @@ const CommentsCard = ({ comment }: ICommentsCard) => {
           <span className="text-xs text-gray-400 ml-1">
             {`Le ${commentDays} à ${commentHour}`}{' '}
           </span>
-          {comment.userId === auth?.currentUser.userId && (
+          {displayDelete && (
             <span
               onClick={handleDelete}
               className="ml-1 inline-block align-middle cursor-pointer "

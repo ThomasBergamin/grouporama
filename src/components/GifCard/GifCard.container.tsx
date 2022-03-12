@@ -15,7 +15,11 @@ interface IGifCardContainer {
 const GifCardContainer = ({ gif, withComments = false }: IGifCardContainer) => {
   const auth = useAuth();
   const { gifAuthor, loading } = useGifAuthor(gif.userId);
+  const { gifAuthor: user, loading: loadingUser } = useGifAuthor(
+    auth?.currentUser.userId ? auth?.currentUser.userId : '',
+  );
   const [isCurrentUserAuthor, setIsCurrentUserAuthor] = useState(false);
+  const [isSuperAdmin, setIsSuperAdmin] = useState(false);
 
   const gifDate = new Date(gif.createdAt);
   const gifDays = getDate(gifDate) + '/' + (getMonth(gifDate) + 1);
@@ -30,6 +34,13 @@ const GifCardContainer = ({ gif, withComments = false }: IGifCardContainer) => {
       setIsCurrentUserAuthor(true);
     }
   }, [gif]);
+
+  useEffect(() => {
+    if (user?.isSuperAdmin) {
+      setIsCurrentUserAuthor(true);
+      setIsSuperAdmin(true);
+    }
+  }, [user, loadingUser]);
 
   return !loading ? (
     <div className="maw-w-128 flex mx-6 flex-col items-center">
@@ -47,7 +58,11 @@ const GifCardContainer = ({ gif, withComments = false }: IGifCardContainer) => {
 
       {gif.comments && withComments && (
         <div className="mt-4 mb-16">
-          <CommentsList gifId={gif.id} comments={gif.comments} />
+          <CommentsList
+            isSuperAdmin={isSuperAdmin}
+            gifId={gif.id}
+            comments={gif.comments}
+          />
         </div>
       )}
     </div>

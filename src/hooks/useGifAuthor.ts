@@ -4,7 +4,12 @@ import dbService from '../services/dbService';
 
 export const useGifAuthor = (id: string) => {
   const [gifAuthor, setGifAuthor] =
-    useState<{ id: string; lastName: string; firstName: string }>();
+    useState<{
+      id: string;
+      lastName: string;
+      firstName: string;
+      isSuperAdmin: boolean;
+    }>();
   const [loading, setLoading] = useState<boolean>(false);
   const auth = useAuth();
 

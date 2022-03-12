@@ -26,6 +26,7 @@ const GifCard = ({
   isCurrentUserAuthor,
 }: IGifCard) => {
   const history = useHistory();
+
   const goToDetail = () => {
     if (!withComments) {
       history.push(`gifs/${id}`);

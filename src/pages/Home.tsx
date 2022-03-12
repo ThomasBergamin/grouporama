@@ -10,6 +10,7 @@ export const Home = () => {
   const { gifs, loading } = useGifs();
   const history = useHistory();
   const handlePost = () => history.push('post');
+
   return (
     <>
       <Navbar />

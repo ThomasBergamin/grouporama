@@ -8,6 +8,7 @@ import dbService from '../services/dbService';
 import { useGif } from '../hooks/useGif';
 import { useForm } from 'react-hook-form';
 import Alert from '../components/Alert';
+import { useGifAuthor } from '../hooks/useGifAuthor';
 
 interface IForm {
   image: FileList;
@@ -19,6 +20,9 @@ export const GifEdit = () => {
   const auth = useAuth();
   const { id } = useParams<Record<string, string>>();
   const { gif, loading } = useGif(id);
+  const { gifAuthor: user, loading: loadingUser } = useGifAuthor(
+    auth?.currentUser.userId ? auth?.currentUser.userId : '',
+  );
   const [title, setTitle] = useState('');
   const [errorText, setErrorText] = useState('');
   const [file, setFile] = useState<File>();
@@ -33,12 +37,12 @@ export const GifEdit = () => {
   }, [gif, loading]);
 
   useEffect(() => {
-    if (gif && auth) {
-      if (gif.userId !== auth.currentUser.userId) {
+    if (gif && auth && !loadingUser) {
+      if (gif.userId !== auth.currentUser.userId && !user?.isSuperAdmin) {
         history.push('/home');
       }
     }
-  });
+  }, [gif, auth, loadingUser, loading, user]);
 
   useEffect(() => {
     if (gif) {
