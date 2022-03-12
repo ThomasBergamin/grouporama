@@ -39,7 +39,7 @@ const GifCard = ({
     }
   };
   return (
-    <div className="bg-white border border-gray p-4 border-transparent rounded-2xl shadow-lg">
+    <div className="bg-white border border-gray p-4 border-transparent rounded-2xl shadow-lg ">
       <div className="flex items-baseline justify-between">
         <h2
           onClick={goToDetail}
@@ -54,20 +54,22 @@ const GifCard = ({
           <FiEdit
             onClick={goToEdit}
             size={21}
-            className="cursor-pointer text-tertiary"
+            className="cursor-pointer ml-4 text-tertiary"
           />
         )}
       </div>
-      <div className="">
-        <img
-          onClick={goToDetail}
-          className={`w-96 bg-cover object-contain rounded-md ${
-            !withComments && 'cursor-pointer'
-          }`}
-          src={imageUrl}
-          alt={`Gif posté par ${authorName}`}
-        />
-      </div>
+      {imageUrl && (
+        <div>
+          <img
+            onClick={goToDetail}
+            className={`w-96 bg-cover object-contain rounded-md ${
+              !withComments && 'cursor-pointer'
+            }`}
+            src={imageUrl}
+            alt={`Gif posté par ${authorName}`}
+          />
+        </div>
+      )}
 
       <div className="flex mt-4 place-content-end items-center">
         <p className="text-darkGray pr-2">
