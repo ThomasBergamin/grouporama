@@ -16,6 +16,7 @@ interface IAuthContext {
     firstName: string,
     email: string,
     password: string,
+    isSuperAdmin: boolean,
   ) => Promise<any>;
   authHeader: () => {
     Authorization: string;
@@ -79,6 +80,7 @@ export const AuthProvider = ({
     firstName: string,
     email: string,
     password: string,
+    isSuperAdmin: boolean,
   ) => {
     return await axios
       .post(API_URL + 'signup', {
@@ -86,6 +88,7 @@ export const AuthProvider = ({
         firstName,
         email,
         password,
+        isSuperAdmin,
       })
       .then((response) => response)
       .catch((error) => {

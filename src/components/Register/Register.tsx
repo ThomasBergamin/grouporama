@@ -28,8 +28,15 @@ const Register = () => {
 
   const onSubmit: SubmitHandler<IRegisterInput> = (data) => {
     if (auth) {
+      const isSuperAdmin = false;
       auth
-        .register(data.lastName, data.firstName, data.email, data.password)
+        .register(
+          data.lastName,
+          data.firstName,
+          data.email,
+          data.password,
+          isSuperAdmin,
+        )
         .then((response) => {
           if (response.status == '200') {
             history.push('/login');
