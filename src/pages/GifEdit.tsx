@@ -18,7 +18,7 @@ interface IForm {
 export const GifEdit = () => {
   const auth = useAuth();
   const { id } = useParams<Record<string, string>>();
-  const { gif } = useGif(id);
+  const { gif, loading } = useGif(id);
   const [title, setTitle] = useState('');
   const [errorText, setErrorText] = useState('');
   const [file, setFile] = useState<File>();
@@ -27,10 +27,10 @@ export const GifEdit = () => {
   const { register, handleSubmit } = useForm<IForm>();
 
   useEffect(() => {
-    if (gif && !gif.isAFile) {
+    if (gif && !loading && !gif.isAFile) {
       setUrl(gif.url);
     }
-  });
+  }, [gif, loading]);
 
   useEffect(() => {
     if (gif && auth) {
